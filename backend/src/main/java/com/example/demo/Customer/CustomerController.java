@@ -3,10 +3,7 @@ package com.example.demo.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,4 +25,24 @@ public class CustomerController {
     public ResponseEntity<Customer> getCustomerById(@PathVariable("index") Long index) {
         return new ResponseEntity<Customer>(customerService.getCustomerById(index), HttpStatus.OK);
     }
+
+    @PostMapping
+    public ResponseEntity<Customer> addCustomer(@RequestBody Customer customer) {
+        customerService.addCustomer(customer);
+        return new ResponseEntity<Customer>(customer, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping(path = "{index}")
+    public ResponseEntity<Customer> deleteCustomer(@PathVariable("index") Long index) {
+        customerService.deleteCustomer(index);
+        return new ResponseEntity<Customer>(HttpStatus.OK);
+    }
+
+    @PutMapping(path = "{index}")
+    public ResponseEntity<Customer> updateCustomer(@PathVariable("index") Long index,
+                                                   @RequestBody Customer customer){
+        customerService.updateCustomer(index, customer);
+        return new ResponseEntity<Customer>(HttpStatus.OK);
+    }
+
 }
