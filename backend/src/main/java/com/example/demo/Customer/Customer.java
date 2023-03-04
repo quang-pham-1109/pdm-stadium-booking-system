@@ -6,7 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.scheduling.support.SimpleTriggerContext;
 
-@AllArgsConstructor //Add all contructor
+@AllArgsConstructor //Add all constructor
 @Document(collection = "customer")
 public class Customer {
     @Id

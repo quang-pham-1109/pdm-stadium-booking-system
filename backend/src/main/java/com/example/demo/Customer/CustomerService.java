@@ -16,4 +16,9 @@ public class CustomerService {
     public List<Customer> getAllCustomer(){
         return customerRepository.findAll();
     }
+
+    public Customer getCustomerById(Long index) {
+        return customerRepository.findCustomerByIndex(index).
+                orElseThrow(() -> new IllegalStateException("Customer with id " + index + " does not exist"));
+    }
 }
