@@ -1,36 +1,22 @@
 package com.example.demo.Customer;
 
-import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.scheduling.support.SimpleTriggerContext;
 
-@Entity(name = "Customer")
-@Table
+@AllArgsConstructor //Add all contructor
+@Document(collection = "customer")
 public class Customer {
     @Id
-    @SequenceGenerator(
-            name = "customer_sequence",
-            sequenceName =  "customer_sequence",
-            allocationSize =  1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "customer_sequence"
-    )
-    private Long id;
+    private ObjectId _id;
     private String name;
     private String email;
+    private Long index;
 
-    public Customer() {
-    }
-
-    public Customer(Long id, String name, String email) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-    }
-
-    public Long getId() {
-        return id;
+    public ObjectId get_id() {
+        return _id;
     }
 
     public String getName() {
@@ -41,8 +27,12 @@ public class Customer {
         return email;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Long getIndex() {
+        return index;
+    }
+
+    public void set_id(ObjectId _id) {
+        this._id = _id;
     }
 
     public void setName(String name) {
@@ -51,5 +41,9 @@ public class Customer {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setIndex(Long index) {
+        this.index = index;
     }
 }
