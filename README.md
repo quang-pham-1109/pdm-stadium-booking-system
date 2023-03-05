@@ -2,5 +2,5 @@ A project for Principle of Database Management Course in International Universit
 
 ## Prerequisite
 - **Back-end**: Spring Boot, Spring Data MongoDB
-- **Database Management System**: MongoDB
 - **Front-end**: Reactjs
+- - **Database Management System**: MongoDB
