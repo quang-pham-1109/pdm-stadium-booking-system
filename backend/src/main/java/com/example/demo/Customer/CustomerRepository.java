@@ -9,5 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface CustomerRepository extends MongoRepository<Customer, Long> {
-
+    Optional<Customer> findCustomerBy_id(ObjectId id);
+    Optional<Customer> findCustomerByEmail(String email);
+    Optional<Customer> deleteCustomerBy_id (ObjectId id);
 }
