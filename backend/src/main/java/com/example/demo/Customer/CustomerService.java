@@ -1,5 +1,6 @@
 package com.example.demo.Customer;
 
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,9 +18,10 @@ public class CustomerService {
         return customerRepository.findAll();
     }
 
-    public Customer getCustomerById(Long index) {
-        return customerRepository.findCustomerByIndex(index).
-                orElseThrow(() -> new IllegalStateException("Customer with id " + index + " does not exist"));
+    public Customer getCustomerById(ObjectId id) {
+        return customerRepository.findCustomerBy_id(id).
+                orElseThrow(() -> new IllegalStateException("Customer with id " + id + " does not exist"));
+
     }
 
     public void addCustomer(Customer customer) {
@@ -30,27 +32,29 @@ public class CustomerService {
         customerRepository.save(customer);
     }
 
-    public void deleteCustomer(Long index) {
-        boolean exists = customerRepository.findCustomerByIndex(index).isPresent();
+    public void deleteCustomer(ObjectId id) {
+        boolean exists = customerRepository.findCustomerBy_id(id).isPresent();
         if (!exists) {
             throw new IllegalStateException("" +
-                    "Customer with id" + index + " does not exist");
+                    "Customer with id" + id + " does not exist");
         }
-        customerRepository.deleteCustomerByIndex(index);
-
+        customerRepository.deleteCustomerBy_id(id);
     }
 
     @Transactional
-    public void updateCustomer(Long index, Customer customer) {
-        Optional<Customer> customerOptional = customerRepository.findCustomerByIndex(index);
+    public void updateCustomer(ObjectId id, Customer customer) {
+        Optional<Customer> customerOptional = customerRepository.findCustomerBy_id(id);
 
         if (customerOptional.isPresent()){
             Customer customer1 = customerOptional.get();
-            customer1.setName(customer.getName());
+            customer1.setFirstName(customer.getFirstName());
+            customer1.setLastName(customer.getLastName());
             customer1.setEmail(customer.getEmail());
+            customer1.setAddress(customer.getAddress());
+            customer1.setPhoneNumber(customer.getPhoneNumber());
             customerRepository.save(customer1);
         } else {
-            throw new IllegalStateException("Customer with id " + index + " does not exist");
+            throw new IllegalStateException("Customer with id " + id + " does not exist");
         }
     }
 }

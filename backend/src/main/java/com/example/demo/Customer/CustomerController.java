@@ -1,5 +1,6 @@
 package com.example.demo.Customer;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,9 +22,9 @@ public class CustomerController {
         return new  ResponseEntity<List<Customer>>(customerService.getAllCustomer(), HttpStatus.OK);
     }
 
-    @GetMapping(path = "/{index}")
-    public ResponseEntity<Customer> getCustomerById(@PathVariable("index") Long index) {
-        return new ResponseEntity<Customer>(customerService.getCustomerById(index), HttpStatus.OK);
+    @GetMapping(path = "{id}")
+    public ResponseEntity<Customer> getCustomerById(@PathVariable("id") ObjectId id) {
+        return new ResponseEntity<Customer>(customerService.getCustomerById(id), HttpStatus.OK);
     }
 
     @PostMapping
@@ -32,17 +33,16 @@ public class CustomerController {
         return new ResponseEntity<Customer>(customer, HttpStatus.CREATED);
     }
 
-    @DeleteMapping(path = "{index}")
-    public ResponseEntity<Customer> deleteCustomer(@PathVariable("index") Long index) {
-        customerService.deleteCustomer(index);
+    @DeleteMapping(path = "{id}")
+    public ResponseEntity<Customer> deleteCustomer(@PathVariable("id") ObjectId id) {
+        customerService.deleteCustomer(id);
         return new ResponseEntity<Customer>(HttpStatus.OK);
     }
 
-    @PutMapping(path = "{index}")
-    public ResponseEntity<Customer> updateCustomer(@PathVariable("index") Long index,
+    @PutMapping(path = "{id}")
+    public ResponseEntity<Customer> updateCustomer(@PathVariable("id") ObjectId id,
                                                    @RequestBody Customer customer){
-        customerService.updateCustomer(index, customer);
+        customerService.updateCustomer(id, customer);
         return new ResponseEntity<Customer>(HttpStatus.OK);
     }
-
 }
