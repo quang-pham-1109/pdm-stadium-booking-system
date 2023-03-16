@@ -1,7 +1,6 @@
 package com.example.demo.Customer;
 
-import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,26 +22,26 @@ public class CustomerController {
     }
 
     @GetMapping(path = "{id}")
-    public ResponseEntity<Customer> getCustomerById(@PathVariable("id") ObjectId id) {
+    public ResponseEntity<Customer> getCustomerById(@PathVariable("id") Long id) {
         return new ResponseEntity<Customer>(customerService.getCustomerById(id), HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<Customer> addCustomer(@RequestBody Customer customer) {
-        customerService.addCustomer(customer);
+        customerService.addNewCustomer(customer);
         return new ResponseEntity<Customer>(customer, HttpStatus.CREATED);
     }
 
     @DeleteMapping(path = "{id}")
-    public ResponseEntity<Customer> deleteCustomer(@PathVariable("id") ObjectId id) {
-        customerService.deleteCustomer(id);
+    public ResponseEntity<Customer> deleteCustomer(@PathVariable("id") Long customerId) {
+        customerService.deleteCustomer(customerId);
         return new ResponseEntity<Customer>(HttpStatus.OK);
     }
 
     @PutMapping(path = "{id}")
-    public ResponseEntity<Customer> updateCustomer(@PathVariable("id") ObjectId id,
+    public ResponseEntity<Customer> updateCustomer(@PathVariable("id") Long customerId,
                                                    @RequestBody Customer customer){
-        customerService.updateCustomer(id, customer);
+        customerService.updateCustomer(customerId, customer);
         return new ResponseEntity<Customer>(HttpStatus.OK);
     }
 }

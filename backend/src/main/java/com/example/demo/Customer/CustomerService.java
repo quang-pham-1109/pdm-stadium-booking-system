@@ -1,6 +1,6 @@
 package com.example.demo.Customer;
 
-import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,6 +10,7 @@ import java.util.*;
 public class CustomerService {
     private final CustomerRepository customerRepository;
 
+    @Autowired
     public CustomerService(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
@@ -18,43 +19,61 @@ public class CustomerService {
         return customerRepository.findAll();
     }
 
-    public Customer getCustomerById(ObjectId id) {
-        return customerRepository.findCustomerBy_id(id).
-                orElseThrow(() -> new IllegalStateException("Customer with id " + id + " does not exist"));
-
-    }
-
-    public void addCustomer(Customer customer) {
-        Optional<Customer> customerOptional = customerRepository.findCustomerByEmail(customer.getEmail());
-        if (customerOptional.isPresent()) {
-            throw new IllegalStateException("This email has already been registered");
+    public void addNewCustomer(Customer customer){
+        Optional<Customer> customerOptional = customerRepository.
+                findCustomerByEmail(customer.getEmail());
+        if(customerOptional.isPresent()){
+            throw new IllegalStateException("email taken");
         }
         customerRepository.save(customer);
     }
 
-    public void deleteCustomer(ObjectId id) {
-        boolean exists = customerRepository.findCustomerBy_id(id).isPresent();
-        if (!exists) {
-            throw new IllegalStateException("" +
-                    "Customer with id" + id + " does not exist");
+    public Customer getCustomerById(Long customerId){
+        return customerRepository.findCustomerByCustomerId(customerId).
+                orElseThrow(() -> new IllegalStateException("Customer does not exist"));
+    }
+
+    public void deleteCustomer(Long customerId){
+        boolean exists = customerRepository.existsById(customerId);
+        if (!exists){
+            throw new IllegalStateException(
+                    "customer with id " + customerId + "does not exist");
         }
-        customerRepository.deleteCustomerBy_id(id);
+        customerRepository.deleteById(customerId);
     }
 
     @Transactional
-    public void updateCustomer(ObjectId id, Customer customer) {
-        Optional<Customer> customerOptional = customerRepository.findCustomerBy_id(id);
-
-        if (customerOptional.isPresent()){
-            Customer customer1 = customerOptional.get();
+    public void updateCustomer(Long customerId, Customer customer){
+        Customer customer1 = customerRepository.findCustomerByCustomerId(customerId).
+                orElseThrow(() -> new IllegalStateException("Customer does not exist"));
+        if(customer.getFirstName() != null && customer.getFirstName().length() > 0 &&
+                !Objects.equals(customer1.getFirstName(), customer.getFirstName())){
             customer1.setFirstName(customer.getFirstName());
+        }
+        if(customer.getLastName() != null && customer.getLastName().length() > 0 &&
+                !Objects.equals(customer1.getLastName(), customer.getLastName())){
             customer1.setLastName(customer.getLastName());
-            customer1.setEmail(customer.getEmail());
-            customer1.setAddress(customer.getAddress());
+        }
+        if(customer.getDateOfBirth() != null && customer.getDateOfBirth().length() > 0 &&
+                !Objects.equals(customer1.getDateOfBirth(), customer.getDateOfBirth())){
+            customer1.setDateOfBirth(customer.getDateOfBirth());
+        }
+        if(customer.getPhoneNumber() != null && customer.getPhoneNumber().length() > 0 &&
+                !Objects.equals(customer1.getPhoneNumber(), customer.getPhoneNumber())){
             customer1.setPhoneNumber(customer.getPhoneNumber());
-            customerRepository.save(customer1);
-        } else {
-            throw new IllegalStateException("Customer with id " + id + " does not exist");
+        }
+        if(customer.getEmail() != null && customer.getEmail().length() > 0 &&
+                !Objects.equals(customer1.getEmail(), customer.getEmail())){
+            Optional<Customer> customerOptional = customerRepository.
+                    findCustomerByEmail(customer.getEmail());
+            if(customerOptional.isPresent()){
+                throw new IllegalStateException("email taken");
+            }
+            customer1.setEmail(customer.getEmail());
+        }
+        if(customer.getAddress() != null && customer.getAddress().length() > 0 &&
+                !Objects.equals(customer1.getAddress(), customer.getAddress())){
+            customer1.setAddress(customer.getAddress());
         }
     }
 }

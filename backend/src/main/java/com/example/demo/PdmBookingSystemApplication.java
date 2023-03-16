@@ -9,5 +9,4 @@ public class PdmBookingSystemApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(PdmBookingSystemApplication.class, args);
 	}
-
 }
