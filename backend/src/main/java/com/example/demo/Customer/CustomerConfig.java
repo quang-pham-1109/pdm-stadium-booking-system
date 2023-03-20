@@ -8,7 +8,7 @@ import java.util.List;
 
 @Configuration
 public class CustomerConfig {
-    @Bean
+    @Bean //setup basic config for customer
     CommandLineRunner commandLineRunner (CustomerRepository repository){
         return args -> {
             Customer customer1 = new Customer(

@@ -1,11 +1,15 @@
 package com.example.demo.Customer;
 
+import com.example.demo.Booking.Booking;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.Set;
+
 @AllArgsConstructor
 @Entity
+@Table(name = "Customer")
 public class Customer {
 
     @Id
@@ -32,6 +36,9 @@ public class Customer {
     private String phoneNumber;
     private String email;
     private String address;
+
+    @OneToMany(mappedBy = "customer")
+    private Set<Booking> booking;
 
     public Customer() {
 
