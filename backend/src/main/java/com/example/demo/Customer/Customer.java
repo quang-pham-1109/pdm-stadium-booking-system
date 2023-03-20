@@ -1,5 +1,6 @@
 package com.example.demo.Customer;
 
+import Event.Event;
 import com.example.demo.Booking.Booking;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -105,4 +106,11 @@ public class Customer {
         this.address = address;
     }
 
+    public Set<Booking> getBooking() {
+        return booking;
+    }
+
+    public void setBooking(Set<Booking> booking) {
+        this.booking = booking;
+    }
 }
