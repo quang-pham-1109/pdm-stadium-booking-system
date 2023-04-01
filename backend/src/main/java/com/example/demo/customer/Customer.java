@@ -1,10 +1,9 @@
-package com.example.demo.Customer;
+package com.example.demo.customer;
 
-import com.example.demo.Booking.Booking;
+import com.example.demo.booking.Booking;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 
-import java.time.LocalDate;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -105,4 +104,11 @@ public class Customer {
         this.address = address;
     }
 
+    public Set<Booking> getBooking() {
+        return booking;
+    }
+
+    public void setBooking(Set<Booking> booking) {
+        this.booking = booking;
+    }
 }
