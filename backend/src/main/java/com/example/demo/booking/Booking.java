@@ -1,13 +1,11 @@
-package com.example.demo.Booking;
+package com.example.demo.booking;
 
-import Event.Event;
-import com.example.demo.Customer.Customer;
+import com.example.demo.event.Event;
+import com.example.demo.customer.Customer;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.Set;
 
 @Entity
 @Table(name = "Booking")

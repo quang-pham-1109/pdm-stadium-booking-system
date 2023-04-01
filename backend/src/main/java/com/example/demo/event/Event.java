@@ -1,6 +1,6 @@
-package Event;
+package com.example.demo.event;
 
-import com.example.demo.Booking.Booking;
+import com.example.demo.booking.Booking;
 import jakarta.persistence.*;
 import lombok.*;
 

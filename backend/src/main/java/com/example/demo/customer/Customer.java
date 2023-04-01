@@ -1,11 +1,9 @@
-package com.example.demo.Customer;
+package com.example.demo.customer;
 
-import Event.Event;
-import com.example.demo.Booking.Booking;
+import com.example.demo.booking.Booking;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 
-import java.time.LocalDate;
 import java.util.Set;
 
 @AllArgsConstructor
