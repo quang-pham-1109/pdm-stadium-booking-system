@@ -1,13 +1,18 @@
 package com.example.demo.customer;
 
 import com.example.demo.booking.Booking;
+import com.example.demo.paymentBill.PaymentBill;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Set;
 
 @AllArgsConstructor
 @Entity
+@Getter
+@Setter
 @Table(name = "Customer")
 public class Customer {
 
@@ -23,21 +28,24 @@ public class Customer {
     )
     private Long customerId;
 
-    @Column(
-            nullable = false //name column can't be null
-    )
+    @Column(nullable = false)
     private String firstName;
-    @Column(
-            nullable = false //name column can't be null
-    )
+
+    @Column(nullable = false)
     private String lastName;
+
     private String dateOfBirth;
     private String phoneNumber;
     private String email;
     private String address;
 
+    //Relationships
     @OneToMany(mappedBy = "customer")
     private Set<Booking> booking;
+
+    @OneToMany(mappedBy = "customer")
+    private Set<PaymentBill> paymentBill;
+
 
     public Customer() {
 
@@ -48,67 +56,4 @@ public class Customer {
         this.lastName = lastName;
     }
 
-    public Long getCustomerId() {
-        return customerId;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public Set<Booking> getBooking() {
-        return booking;
-    }
-
-    public void setBooking(Set<Booking> booking) {
-        this.booking = booking;
-    }
 }
