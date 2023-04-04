@@ -2,6 +2,8 @@ package com.example.demo.booking;
 
 import com.example.demo.event.Event;
 import com.example.demo.customer.Customer;
+import com.example.demo.paymentBill.PaymentBill;
+import com.example.demo.seat.Seat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,6 +26,13 @@ public class Booking {
     @ManyToOne
     @JoinColumn(name = "customerID", nullable = false)
     private Customer customer;
+
+    @OneToOne
+    @JoinColumn(name = "SeatID", nullable = false)
+    private Seat seat;
+
+    @OneToOne
+    private PaymentBill paymentBill;
 
     public Booking() {
 
