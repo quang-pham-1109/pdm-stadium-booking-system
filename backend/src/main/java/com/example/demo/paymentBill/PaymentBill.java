@@ -24,6 +24,4 @@ public class PaymentBill {
     @OneToOne
     @JoinColumn(name = "bookingID", nullable = false)
     private Booking booking;
-
-
 }
