@@ -46,12 +46,12 @@ public class Customer implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    //Relationships
-    @OneToMany(mappedBy = "customer")
-    private Set<Booking> booking;
-
-    @OneToMany(mappedBy = "customer")
-    private Set<PaymentBill> paymentBill;
+//    //Relationships
+//    @OneToMany(mappedBy = "customer")
+//    private Set<Booking> booking;
+//
+//    @OneToMany(mappedBy = "customer")
+//    private Set<PaymentBill> paymentBill;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

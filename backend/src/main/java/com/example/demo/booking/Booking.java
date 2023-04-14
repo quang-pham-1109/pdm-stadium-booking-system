@@ -23,9 +23,9 @@ public class Booking {
     @JoinColumn(name = "eventID", nullable = false)
     private Event event;
 
-    @ManyToOne
-    @JoinColumn(name = "customerID", nullable = false)
-    private Customer customer;
+//    @ManyToOne
+//    @JoinColumn(name = "customerID", nullable = false)
+//    private Customer customer;
 
     @OneToOne
     @JoinColumn(name = "SeatID", nullable = false)
