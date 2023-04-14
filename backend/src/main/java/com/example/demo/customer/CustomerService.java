@@ -21,19 +21,19 @@ public class CustomerService {
 
     public void addNewCustomer(Customer customer){
         Optional<Customer> customerOptional = customerRepository.
-                findCustomerByEmail(customer.getEmail());
+                findByEmail(customer.getEmail());
         if(customerOptional.isPresent()){
             throw new IllegalStateException("email taken");
         }
         customerRepository.save(customer);
     }
 
-    public Customer getCustomerById(Long customerId){
+    public Customer getCustomerById(Integer customerId){
         return customerRepository.findCustomerByCustomerId(customerId).
                 orElseThrow(() -> new IllegalStateException("Customer does not exist"));
     }
 
-    public void deleteCustomer(Long customerId){
+    public void deleteCustomer(Integer customerId){
         boolean exists = customerRepository.existsById(customerId);
         if (!exists){
             throw new IllegalStateException(
@@ -43,7 +43,7 @@ public class CustomerService {
     }
 
     @Transactional
-    public void updateCustomer(Long customerId, Customer customer){
+    public void updateCustomer(Integer customerId, Customer customer){
         Customer customer1 = customerRepository.findCustomerByCustomerId(customerId).
                 orElseThrow(() -> new IllegalStateException("Customer does not exist"));
         if(customer.getFirstName() != null && customer.getFirstName().length() > 0 &&
@@ -65,7 +65,7 @@ public class CustomerService {
         if(customer.getEmail() != null && customer.getEmail().length() > 0 &&
                 !Objects.equals(customer1.getEmail(), customer.getEmail())){
             Optional<Customer> customerOptional = customerRepository.
-                    findCustomerByEmail(customer.getEmail());
+                    findByEmail(customer.getEmail());
             if(customerOptional.isPresent()){
                 throw new IllegalStateException("email taken");
             }

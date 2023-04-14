@@ -22,7 +22,7 @@ public class CustomerController {
     }
 
     @GetMapping(path = "{id}")
-    public ResponseEntity<Customer> getCustomerById(@PathVariable("id") Long id) {
+    public ResponseEntity<Customer> getCustomerById(@PathVariable("id") Integer id) {
         return new ResponseEntity<Customer>(customerService.getCustomerById(id), HttpStatus.OK);
     }
 
@@ -33,13 +33,13 @@ public class CustomerController {
     }
 
     @DeleteMapping(path = "{id}")
-    public ResponseEntity<Customer> deleteCustomer(@PathVariable("id") Long customerId) {
+    public ResponseEntity<Customer> deleteCustomer(@PathVariable("id") Integer customerId) {
         customerService.deleteCustomer(customerId);
         return new ResponseEntity<Customer>(HttpStatus.OK);
     }
 
     @PutMapping(path = "{id}")
-    public ResponseEntity<Customer> updateCustomer(@PathVariable("id") Long customerId,
+    public ResponseEntity<Customer> updateCustomer(@PathVariable("id") Integer customerId,
                                                    @RequestBody Customer customer){
         customerService.updateCustomer(customerId, customer);
         return new ResponseEntity<Customer>(HttpStatus.OK);

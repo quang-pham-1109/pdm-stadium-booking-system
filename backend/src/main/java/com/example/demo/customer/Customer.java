@@ -17,29 +17,18 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Customer")
+@Table(name = "_customer")
 public class Customer implements UserDetails {
 
     @Id
-    @SequenceGenerator( //Generate a sequence start at 1 and increment by 1
-            name = "customer_sequence",
-            sequenceName = "customer_sequence",
-            allocationSize = 1 //ID increment by 1 everytime
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "customer_sequence"
-    )
-    private Long customerId;
+    @GeneratedValue
+    private Integer customerId;
 
-    @Column(nullable = false)
     private String firstName;
-
-    @Column(nullable = false)
     private String lastName;
+    private String email;
     private String dateOfBirth;
     private String phoneNumber;
-    private String email;
     private String address;
     private String password;
 
@@ -60,12 +49,12 @@ public class Customer implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return email;
     }
 
     @Override
