@@ -17,9 +17,9 @@ public class PaymentBill {
 
     private Long paymentAmount;
 
-    @ManyToOne
-    @JoinColumn(name = "customerID", nullable = false)
-    private Customer customer;
+//    @ManyToOne
+//    @JoinColumn(name = "customerID", nullable = false)
+//    private Customer customer;
 
     @OneToOne
     @JoinColumn(name = "bookingID", nullable = false)
