@@ -20,7 +20,7 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "my_seq")
     @SequenceGenerator(name = "my_seq", sequenceName = "booking_seq", allocationSize = 1)
     @Column(name = "booking_id")
-    private Long bookingID;
+    private Integer bookingID;
 
     @Column(name = "booking_date")
     private Date bookingDate;

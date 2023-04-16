@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS event (
 CREATE TABLE IF NOT EXISTS seat (
         seat_id varchar(10) not null,
         zone varchar(2),
-        is_booked BIT not null,
+        is_booked BOOLEAN NOT NULL ,
         primary key (seat_id)
     );
 

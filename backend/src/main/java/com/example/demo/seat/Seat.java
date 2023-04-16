@@ -13,11 +13,10 @@ import org.springframework.scheduling.support.SimpleTriggerContext;
 @AllArgsConstructor
 public class Seat {
     @Id
-    private Long SeatID;
+    @Column(name = "seat_id")
+    private String SeatID;
 
     private String Zone;
-    private Byte isBooked;
+    private Boolean isBooked;
 
-    @OneToOne
-    private Booking booking;
 }
