@@ -2,19 +2,15 @@ package com.example.demo.seat;
 
 import com.example.demo.booking.Booking;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.scheduling.support.SimpleTriggerContext;
 
 @Entity
 @Table(name = "Seat")
-@AllArgsConstructor
+@Data
+@Builder
 @NoArgsConstructor
-@Getter
-@Setter
-
+@AllArgsConstructor
 public class Seat {
     @Id
     private Long SeatID;

@@ -1,7 +1,6 @@
 package com.example.demo.customer;
 
 import com.example.demo.booking.Booking;
-import com.example.demo.paymentBill.PaymentBill;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,6 +23,7 @@ public class Customer implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "my_seq")
     @SequenceGenerator(name = "my_seq", sequenceName = "customer_seq", allocationSize = 1)
+    @Column(name = "customer_id")
     private Integer customerId;
 
     @Column(name = "first_name")
@@ -47,9 +47,6 @@ public class Customer implements UserDetails {
     //Relationships
     @OneToMany(mappedBy = "customer")
     private Set<Booking> booking;
-
-    @OneToMany(mappedBy = "customer")
-    private Set<PaymentBill> paymentBill;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

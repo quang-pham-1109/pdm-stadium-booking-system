@@ -83,7 +83,7 @@ ALTER TABLE payment_bill
        foreign key (customerid) 
        references customer(customer_id);
 
-CREATE SEQUENCE customer_seq
+CREATE SEQUENCE IF NOT EXISTS customer_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
