@@ -16,7 +16,7 @@ public class Seat {
     private Long SeatID;
 
     private String Zone;
-    private boolean isBooked;
+    private Byte isBooked;
 
     @OneToOne
     private Booking booking;

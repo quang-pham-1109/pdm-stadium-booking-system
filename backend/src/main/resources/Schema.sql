@@ -25,10 +25,10 @@ CREATE TABLE IF NOT EXISTS event (
     );
 
 CREATE TABLE IF NOT EXISTS seat (
-        seatid varchar(10) not null,
+        seat_id varchar(10) not null,
         zone varchar(2),
         is_booked BIT not null,
-        primary key (seatid)
+        primary key (seat_id)
     );
 
 CREATE TABLE IF NOT EXISTS booking (
@@ -40,13 +40,11 @@ CREATE TABLE IF NOT EXISTS booking (
         primary key (booking_id)
     );
 
-CREATE TABLE IF NOT EXISTS payment_bill (
-        paymentid int not null,
-        bookingid int not null,
-        customerid int not null,
-		payment_amount decimal(10,2),
-        primary key (paymentid)
-    );
+CREATE TABLE IF NOT EXISTS seat_zone (
+        zone varchar(2) not null,
+        cost integer,
+        PRIMARY KEY (zone)
+);
 
 ALTER TABLE booking DROP CONSTRAINT IF EXISTS FK_CustomerBooking;
 
@@ -67,21 +65,14 @@ ALTER TABLE booking DROP CONSTRAINT IF EXISTS FK_SeatBooking;
 ALTER TABLE booking
        add constraint FK_SeatBooking
        foreign key (seat_id)
-       references seat(seatid);
+       references seat(seat_id);
 
-ALTER TABLE payment_bill DROP CONSTRAINT IF EXISTS  FK_BookingPaymentBill;
+ALTER TABLE seat DROP CONSTRAINT IF EXISTS FK_SeatZoneSeat;
 
-ALTER TABLE payment_bill
-       add constraint FK_BookingPaymentBill
-       foreign key (bookingid) 
-       references booking(booking_id);
-
-ALTER TABLE payment_bill DROP CONSTRAINT IF EXISTS  FK_CustomerPaymentBill;
-
-ALTER TABLE payment_bill
-       add constraint FK_CustomerPaymentBill
-       foreign key (customerid) 
-       references customer(customer_id);
+ALTER TABLE seat
+    add constraint FK_SeatZoneSeat
+    foreign key (zone)
+    references seat_zone(zone);
 
 CREATE SEQUENCE IF NOT EXISTS customer_seq
     START WITH 1
@@ -89,4 +80,20 @@ CREATE SEQUENCE IF NOT EXISTS customer_seq
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
+
+CREATE SEQUENCE IF NOT EXISTS booking_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+CREATE SEQUENCE IF NOT EXISTS event_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
 
