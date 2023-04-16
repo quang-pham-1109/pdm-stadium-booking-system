@@ -18,6 +18,7 @@ public class Event {
     private String eventTitle;
     private String eventDate;
     private String eventTime;
+
     @OneToMany(mappedBy = "event")
     private Set<Booking> booking;
 

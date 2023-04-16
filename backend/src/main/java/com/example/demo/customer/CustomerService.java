@@ -21,7 +21,7 @@ public class CustomerService {
 
     public void addNewCustomer(Customer customer){
         Optional<Customer> customerOptional = customerRepository.
-                findByEmail(customer.getEmail());
+                findCustomerByEmail(customer.getEmail());
         if(customerOptional.isPresent()){
             throw new IllegalStateException("email taken");
         }
@@ -65,7 +65,7 @@ public class CustomerService {
         if(customer.getEmail() != null && customer.getEmail().length() > 0 &&
                 !Objects.equals(customer1.getEmail(), customer.getEmail())){
             Optional<Customer> customerOptional = customerRepository.
-                    findByEmail(customer.getEmail());
+                    findCustomerByEmail(customer.getEmail());
             if(customerOptional.isPresent()){
                 throw new IllegalStateException("email taken");
             }
