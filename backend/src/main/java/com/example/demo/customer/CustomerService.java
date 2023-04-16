@@ -54,7 +54,7 @@ public class CustomerService {
                 !Objects.equals(customer1.getLastName(), customer.getLastName())){
             customer1.setLastName(customer.getLastName());
         }
-        if(customer.getDateOfBirth() != null && customer.getDateOfBirth().length() > 0 &&
+        if(customer.getDateOfBirth() != null  &&
                 !Objects.equals(customer1.getDateOfBirth(), customer.getDateOfBirth())){
             customer1.setDateOfBirth(customer.getDateOfBirth());
         }

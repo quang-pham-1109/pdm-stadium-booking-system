@@ -5,11 +5,11 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Set;
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
 
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "Event")
 public class Event {
