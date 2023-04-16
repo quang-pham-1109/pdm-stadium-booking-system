@@ -17,7 +17,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "_customer")
+@Table(name = "customer")
 public class Customer implements UserDetails {
 
     @Id
