@@ -9,6 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -21,13 +22,21 @@ import java.util.Set;
 public class Customer implements UserDetails {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "my_seq")
+    @SequenceGenerator(name = "my_seq", sequenceName = "customer_seq", allocationSize = 1)
     private Integer customerId;
 
+    @Column(name = "first_name")
     private String firstName;
+
+    @Column(name = "last_name")
     private String lastName;
     private String email;
-    private String dateOfBirth;
+
+    @Column(name = "date_of_birth")
+    private Date dateOfBirth;
+
+    @Column(name = "phone_number")
     private String phoneNumber;
     private String address;
     private String password;
