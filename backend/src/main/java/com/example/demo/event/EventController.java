@@ -3,9 +3,7 @@ package com.example.demo.event;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,6 +19,16 @@ public class EventController {
     @GetMapping
     public ResponseEntity<List<Event>> getEvents() {
         return new ResponseEntity<List<Event>>(eventService.getAllEvents(), HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/{eventID}")
+    public ResponseEntity<Event> getEventByID(@PathVariable("eventID") Integer eventID) {
+        return new ResponseEntity<Event>(eventService.getEventByID(eventID), HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<Event> createEvent(@RequestBody Event event) {
+        return new ResponseEntity<Event>(eventService.createEvent(event), HttpStatus.CREATED);
     }
 
 

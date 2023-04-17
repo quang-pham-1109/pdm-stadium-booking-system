@@ -1,11 +1,8 @@
-package com.example.demo.event;
+package com.example.demo.seat;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface EventRepository extends JpaRepository<Event, Integer> {
-
-
-
+public interface SeatZoneRepository extends JpaRepository<SeatZone, String> {
 }
