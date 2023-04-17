@@ -75,7 +75,7 @@ ALTER TABLE seat
     references seat_zone(zone);
 
 CREATE SEQUENCE IF NOT EXISTS customer_seq
-    START WITH 1
+    START WITH 6
     INCREMENT BY 1
     NO MINVALUE
     NO MAXVALUE
