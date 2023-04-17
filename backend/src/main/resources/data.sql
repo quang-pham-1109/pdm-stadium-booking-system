@@ -1,10 +1,17 @@
-INSERT INTO customer(customer_id, address, date_of_birth, email, first_name, last_name, phone_number)
+INSERT INTO customer(customer_id,
+                     address,
+                     date_of_birth,
+                     email,
+                     first_name,
+                     last_name,
+                     phone_number,
+                     role)
 VALUES
-    (1,'Keskuskatu 45', '2000-11-29', 'haradas@gmail.com','Harada', 'Mizuki', 0949423422),
-    (2,'Torikatu 38', '1988-03-11', 'pirkko@gmail.com','	Pirkko', 'Koskitalo', 0683526222),
-    (3,'Obere Str. 57', '2003-03-03', 'mariaanders@gmail.com','Alfreds', 'Futterkiste', 0842522222),
-    (4,'23 Tsawassen Blvd.', '1985-06-06', 'mariaanders@gmail.com','Tran', 'Chung Lien', 083911508),
-    (5,'Mataderos 2312', '1990-03-23', 'antonio90@gmail.com','Antonio', 'Moreno', 0845572822)
+    (1,'Keskuskatu 45', '2000-11-29', 'haradas@gmail.com','Harada', 'Mizuki', 0949423422, 'USER'),
+    (2,'Torikatu 38', '1988-03-11', 'pirkko@gmail.com','	Pirkko', 'Koskitalo', 0683526222, 'USER' ),
+    (3,'Obere Str. 57', '2003-03-03', 'mariaanders@gmail.com','Alfreds', 'Futterkiste', 0842522222, 'USER'),
+    (4,'23 Tsawassen Blvd.', '1985-06-06', 'mariaanders@gmail.com','Tran', 'Chung Lien', 083911508, 'USER'),
+    (5,'Mataderos 2312', '1990-03-23', 'antonio90@gmail.com','Antonio', 'Moreno', 0845572822, 'USER')
 ON CONFLICT DO NOTHING;
 
 INSERT INTO event(

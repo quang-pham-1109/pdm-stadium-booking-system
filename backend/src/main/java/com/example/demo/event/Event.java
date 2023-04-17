@@ -19,7 +19,7 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "my_seq")
     @SequenceGenerator(name = "my_seq", sequenceName = "event_seq", allocationSize = 1)
     @Column(name = "event_id")
-    private Long eventID;
+    private Integer eventID;
 
     @Column(name = "event_title")
     private String eventTitle;
