@@ -19,4 +19,9 @@ public class EventService {
     public List<Event> getAllEvents() {
         return eventRepository.findAll();
     }
+
+    public Event getEventByID(Integer eventID) {
+        return eventRepository.findById(eventID).
+                orElseThrow(() -> new IllegalStateException("Event does not exist"));
+    }
 }
