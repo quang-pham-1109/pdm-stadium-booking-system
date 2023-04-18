@@ -18,4 +18,6 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
     @Query("SELECT b FROM Booking b")
     List<Booking> findAll();
 
+
+
 }
