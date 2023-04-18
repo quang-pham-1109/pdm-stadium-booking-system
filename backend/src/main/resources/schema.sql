@@ -45,7 +45,6 @@ CREATE TABLE IF NOT EXISTS seat (
         seat_id varchar(10) not null,
         is_booked BOOLEAN NOT NULL ,
         price int,
-        event_id int,
         primary key (seat_id)
     );
 

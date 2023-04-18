@@ -23,14 +23,14 @@ public class Event {
     @Column(name = "event_id")
     private Integer eventID;
 
-    @Column(name = "event_title")
-    private String eventTitle;
-
     @Column(name = "event_date")
     private Date eventDate;
 
     @Column(name = "event_time")
     private Time eventTime;
+
+    @Column(name = "event_title")
+    private String eventTitle;
 
     @Column(name = "available_seats")
     private Integer availableSeats;
@@ -38,7 +38,7 @@ public class Event {
     @Column(name = "total_seats")
     private Integer totalSeats;
 
-    @OneToMany(mappedBy = "event")
-    private List<Seat> Seat;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "event")
+    private List<Booking> booking;
 
 }

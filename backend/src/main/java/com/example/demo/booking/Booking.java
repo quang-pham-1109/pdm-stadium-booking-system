@@ -1,6 +1,8 @@
 package com.example.demo.booking;
 
 import com.example.demo.customer.Customer;
+import com.example.demo.event.Event;
+import com.example.demo.seat.Seat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -21,21 +23,31 @@ public class Booking {
     @Column(name = "booking_id")
     private Integer bookingID;
 
-    @Column(name = "booking_date")
-    private Date bookingDate;
-
-    @Column(name = "event_id")
-    private Integer eventID;
-
     @Column(name = "customer_id", insertable=false, updatable=false)
     private Integer customerID;
+
+    @Column(name = "event_id", insertable=false, updatable=false)
+    private Integer eventID;
+
+    @Column(name = "seat_id", insertable=false, updatable=false)
+    private String seatID;
+
+    @Column(name = "booking_date")
+    private Date bookingDate;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
-    @Column(name = "seat_id")
-    private String seatID;
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "event_id")
+    private Event event;
+
+    @JsonIgnore
+    @OneToOne
+    @JoinColumn(name = "seat_id")
+    private Seat seat;
 
 }

@@ -21,47 +21,47 @@ VALUES (1, '2023-04-16', '17:00:00', 'NCT DREAM TOUR THE DREAM SHOW2: IN A DREAM
        (3, '2023-05-01', '9:00:00', 'BADMINTON OPEN 2023', 7, 10)
     ON CONFLICT DO NOTHING;
 
-INSERT INTO seat(seat_id, event_id, is_booked)
+INSERT INTO seat(seat_id, is_booked)
 VALUES
-    ('A01', 1, TRUE),
-    ('A02', 1, FALSE),
-    ('A03', 1, FALSE),
-    ('A04', 1, FALSE),
-    ('A05', 1, FALSE),
-    ('A06', 1, TRUE),
-    ('A07', 1, FALSE),
-    ('A08', 1, FALSE),
-    ('A09', 1, FALSE),
-    ('A10', 1, FALSE)
+    ('A01', FALSE),
+    ('A02', FALSE),
+    ('A03', FALSE),
+    ('A04', FALSE),
+    ('A05', FALSE),
+    ('A06', FALSE),
+    ('A07', FALSE),
+    ('A08', FALSE),
+    ('A09', FALSE),
+    ('A10', FALSE)
 ON CONFLICT DO NOTHING;
 
 
-INSERT INTO seat(seat_id, event_id, is_booked)
+INSERT INTO seat(seat_id, is_booked)
 VALUES
-    ('A01', 2, TRUE),
-    ('A02', 2, TRUE),
-    ('A03', 2, FALSE),
-    ('A04', 2, FALSE),
-    ('A05', 2, FALSE),
-    ('A06', 2, FALSE),
-    ('A07', 2, TRUE),
-    ('A08', 2, FALSE),
-    ('A09', 2, FALSE),
-    ('A10', 2, FALSE)
+    ('A01', FALSE),
+    ('A02', FALSE),
+    ('A03', FALSE),
+    ('A04', FALSE),
+    ('A05', FALSE),
+    ('A06', FALSE),
+    ('A07', FALSE),
+    ('A08', FALSE),
+    ('A09', FALSE),
+    ('A10', FALSE)
 ON CONFLICT DO NOTHING;
 
-INSERT INTO seat(seat_id, event_id, is_booked)
+INSERT INTO seat(seat_id, is_booked)
 VALUES
-    ('A01', 3, FALSE),
-    ('A02', 3, TRUE),
-    ('A03', 3, FALSE),
-    ('A04', 3, FALSE),
-    ('A05', 3, FALSE),
-    ('A06', 3, FALSE),
-    ('A07', 3, TRUE),
-    ('A08', 3, TRUE),
-    ('A09', 3, FALSE),
-    ('A10', 3, FALSE)
+    ('A01', FALSE),
+    ('A02', FALSE),
+    ('A03', FALSE),
+    ('A04', FALSE),
+    ('A05', FALSE),
+    ('A06', FALSE),
+    ('A07', FALSE),
+    ('A08', FALSE),
+    ('A09', FALSE),
+    ('A10', FALSE)
 ON CONFLICT DO NOTHING;
 
 INSERT INTO booking(booking_id,customer_id, event_id, seat_id, booking_date)

@@ -29,13 +29,13 @@ public class BookingController {
                 HttpStatus.OK);
     }
 
-    @PostMapping(path = "/{customerID}")
-    public ResponseEntity<Booking> createBooking(
-            @PathVariable("customerID") Integer customerID,
-            @RequestBody Booking booking) {
-        return new ResponseEntity<Booking>(
-                bookingService.createBooking(booking, customerID),
-                HttpStatus.CREATED);
-    }
+//    @PostMapping(path = "/{customerID}")
+//    public ResponseEntity<Booking> createBooking(
+//            @PathVariable("customerID") Integer customerID,
+//            @RequestBody Booking booking) {
+//        return new ResponseEntity<Booking>(
+//                bookingService.createBooking(booking, customerID),
+//                HttpStatus.CREATED);
+//    }
 
 }

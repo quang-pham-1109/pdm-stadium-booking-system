@@ -20,8 +20,6 @@ public class Seat {
     private Boolean isBooked;
     private Integer price;
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "event_id")
-    private Event event;
+    @OneToOne(mappedBy = "seat")
+    private Booking booking;
 }
