@@ -33,21 +33,10 @@ public class SeatService {
     }
 
     public List<String> getAllBookedSeatByEventID(String eventID) {
-        return bookingRepository.findAllByEventID(eventID);
+        return seatRepository.findAllBookedSeatsByEvent(eventID);
     }
 
     public List<String> getAllAvailableSeatsByEventID(String eventID) {
-        List<String> bookedSeats = new ArrayList<>();
-        bookedSeats = bookingRepository.findAllByEventID(eventID);
-        List<String> allSeats = new ArrayList<>();
-        allSeats = seatRepository.findAllToString();
-
-        List<String> availableSeats = new ArrayList<>();
-
-        if (bookedSeats != null) {
-            allSeats.removeAll(bookedSeats);
-            availableSeats = allSeats;
-        }
-        return availableSeats;
+        return seatRepository.findAllAvailableSeatsByEventID(eventID);
     }
 }

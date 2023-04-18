@@ -13,14 +13,14 @@ import java.util.Optional;
 public interface SeatRepository extends JpaRepository<Seat, String> {
 
 
-    @Query("SELECT s.seatID FROM Seat s")
-    List<String> findAllToString();
+    @Query("SELECT s.seatID FROM Seat s WHERE s.seatID NOT IN " +
+            "(SELECT b.seatID FROM Booking b WHERE b.eventID = ?1)")
+    List<String> findAllAvailableSeatsByEventID();
 
-    @Modifying
-    @Transactional
-    @Query("UPDATE Seat s SET s.price = ?1")
-    void updateAllSeatPrice(Integer price);
+    @Query("SELECT s.seatID FROM Seat s WHERE s.seatID IN " +
+            "(SELECT b.seatID FROM Booking b WHERE b.eventID = ?1)")
+    List<String> findAllBookedSeatsByEvent(String seatID);
 
-
-    Optional<Seat> findSeatBySeatID(String seatID);
+    @Query("SELECT s FROM Seat s WHERE s.seatID = ?1")
+Optional<Seat> findSeatBySeatID(String seatID);
 }
