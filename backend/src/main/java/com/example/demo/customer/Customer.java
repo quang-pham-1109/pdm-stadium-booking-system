@@ -44,7 +44,8 @@ public class Customer implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "customer")
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
     private List<Booking> booking;
 
 

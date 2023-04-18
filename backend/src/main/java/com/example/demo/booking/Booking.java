@@ -27,8 +27,11 @@ public class Booking {
     @Column(name = "event_id")
     private Integer eventID;
 
+    @Column(name = "customer_id", insertable=false, updatable=false)
+    private Integer customerID;
+
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
