@@ -35,9 +35,14 @@ public class BookingService {
                 orElseThrow(() -> new IllegalStateException("Customer does not exist"))); //check if customer exists
 
         eventRepository.decreaseAvailableSeatsByEventID(booking.getEventID()); //decrease available seats by 1
-        booking.setBookingDate(new Date());
-        booking.setCustomerID(customerID);
-        return bookingRepository.save(booking);
+        var newBooking = Booking.builder()
+                .bookingDate(new Date())
+                .event(eventRepository.findEventByEventID(booking.getEventID()).get())
+                .seat(seatRepository.findSeatBySeatID(booking.getSeatID()).get())
+                .customer(customerRepository.findById(customerID).get())
+                .build();
+
+        return bookingRepository.save(newBooking);
     }
     public List<Booking> getAllBookings() {
         return bookingRepository.findAll();
