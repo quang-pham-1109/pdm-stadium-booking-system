@@ -1,5 +1,3 @@
-
-
 SELECT 'CREATE DATABASE stadium-booking'
 WHERE NOT EXISTS (SELECT FROM pg_database
                          WHERE datname = 'stadium-booking');
@@ -15,6 +13,7 @@ CREATE TABLE IF NOT EXISTS customer (
         phone_number varchar(50),
         password varchar,
         role varchar(50),
+        booking_id int,
         primary key (customer_id)
     );
 
@@ -84,14 +83,14 @@ CREATE SEQUENCE IF NOT EXISTS customer_seq
     CACHE 1;
 
 CREATE SEQUENCE IF NOT EXISTS booking_seq
-    START WITH 8
+    START WITH 9
     INCREMENT BY 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
 
 CREATE SEQUENCE IF NOT EXISTS event_seq
-    START WITH 5
+    START WITH 6
     INCREMENT BY 1
     NO MINVALUE
     NO MAXVALUE

@@ -14,9 +14,12 @@ import org.springframework.scheduling.support.SimpleTriggerContext;
 public class Seat {
     @Id
     @Column(name = "seat_id")
-    private String SeatID;
+    private String seatID;
 
-    private String Zone;
+    private String zone;
     private Boolean isBooked;
 
+    public void setSeatStatus() {
+        this.isBooked = true;
+    }
 }

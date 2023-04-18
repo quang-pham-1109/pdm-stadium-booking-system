@@ -30,7 +30,4 @@ public class Event {
     @Column(name = "event_time")
     private Time eventTime;
 
-    @OneToMany(mappedBy = "event")
-    private Set<Booking> booking;
-
 }

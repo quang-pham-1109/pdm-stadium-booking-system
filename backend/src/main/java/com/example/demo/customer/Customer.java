@@ -44,9 +44,9 @@ public class Customer implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    //Relationships
     @OneToMany(mappedBy = "customer")
-    private Set<Booking> booking;
+    private List<Booking> booking;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
