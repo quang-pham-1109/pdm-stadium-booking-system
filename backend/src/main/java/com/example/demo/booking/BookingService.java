@@ -26,19 +26,17 @@ public class BookingService {
     }
 
     public Booking createBooking(Booking booking, Integer customerID) {
-        seatRepository.bookSeat(booking.getSeatID()); //set a seat status to booked
-        bookingRepository.setBookingDate(new Date(System.currentTimeMillis())); //set booking date to current time
-        bookingRepository.setCustomerId(customerID); //set customer id
-
         if (eventRepository.findAvailableSeatsByEventID(booking.getEventID()).get() == 0) {
             throw new IllegalStateException("No available seats");
         }
-        eventRepository.decreaseAvailableSeatsByEventID(booking.getEventID()); //decrease available seats by 1
-
         eventRepository.findEventByEventID(booking.getEventID()).
                 orElseThrow(() -> new IllegalStateException("Event does not exist")); //check if event exists
         booking.setCustomer(customerRepository.findById(customerID).
                 orElseThrow(() -> new IllegalStateException("Customer does not exist"))); //check if customer exists
+
+        eventRepository.decreaseAvailableSeatsByEventID(booking.getEventID()); //decrease available seats by 1
+        booking.setBookingDate(new Date());
+        booking.setCustomerID(customerID);
         return bookingRepository.save(booking);
     }
     public List<Booking> getAllBookings() {

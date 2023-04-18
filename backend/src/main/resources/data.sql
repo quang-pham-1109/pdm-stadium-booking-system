@@ -1,3 +1,5 @@
+
+
 INSERT INTO customer(customer_id,
                      address,
                      date_of_birth,
@@ -12,7 +14,7 @@ VALUES
     (3,'Obere Str. 57', '2003-03-03', 'mariaanders@gmail.com','Alfreds', 'Futterkiste', 0842522222, 'USER'),
     (4,'23 Tsawassen Blvd.', '1985-06-06', 'mariaanders@gmail.com','Tran', 'Chung Lien', 083911508, 'USER'),
     (5,'Mataderos 2312', '1990-03-23', 'antonio90@gmail.com','Antonio', 'Moreno', 0845572822, 'USER')
-ON CONFLICT DO NOTHING;
+ON CONFLICT DO NOTHING ;
 
 INSERT INTO event(
     event_id, event_date, event_time, event_title, available_seats, total_seats)
@@ -21,47 +23,38 @@ VALUES (1, '2023-04-16', '17:00:00', 'NCT DREAM TOUR THE DREAM SHOW2: IN A DREAM
        (3, '2023-05-01', '9:00:00', 'BADMINTON OPEN 2023', 7, 10)
     ON CONFLICT DO NOTHING;
 
-INSERT INTO seat(seat_id, is_booked)
+INSERT INTO seat(seat_id, price)
 VALUES
-    ('A01', FALSE),
-    ('A02', FALSE),
-    ('A03', FALSE),
-    ('A04', FALSE),
-    ('A05', FALSE),
-    ('A06', FALSE),
-    ('A07', FALSE),
-    ('A08', FALSE),
-    ('A09', FALSE),
-    ('A10', FALSE)
-ON CONFLICT DO NOTHING;
-
-
-INSERT INTO seat(seat_id, is_booked)
-VALUES
-    ('A01', FALSE),
-    ('A02', FALSE),
-    ('A03', FALSE),
-    ('A04', FALSE),
-    ('A05', FALSE),
-    ('A06', FALSE),
-    ('A07', FALSE),
-    ('A08', FALSE),
-    ('A09', FALSE),
-    ('A10', FALSE)
-ON CONFLICT DO NOTHING;
-
-INSERT INTO seat(seat_id, is_booked)
-VALUES
-    ('A01', FALSE),
-    ('A02', FALSE),
-    ('A03', FALSE),
-    ('A04', FALSE),
-    ('A05', FALSE),
-    ('A06', FALSE),
-    ('A07', FALSE),
-    ('A08', FALSE),
-    ('A09', FALSE),
-    ('A10', FALSE)
+    ('A01', 100),
+    ('A02', 100),
+    ('A03', 100),
+    ('A04', 100),
+    ('A05', 100),
+    ('A06', 100),
+    ('A07', 100),
+    ('A08', 100),
+    ('A09', 100),
+    ('A10', 100),
+    ('B01', 100),
+    ('B02', 100),
+    ('B03', 100),
+    ('B04', 100),
+    ('B05', 100),
+    ('B06', 100),
+    ('B07', 100),
+    ('B08', 100),
+    ('B09', 100),
+    ('B10', 100),
+    ('C01', 100),
+    ('C02', 100),
+    ('C03', 100),
+    ('C04', 100),
+    ('C05', 100),
+    ('C06', 100),
+    ('C07', 100),
+    ('C08', 100),
+    ('C09', 100),
+    ('C10', 100)
 ON CONFLICT DO NOTHING;
 
 INSERT INTO booking(booking_id,customer_id, event_id, seat_id, booking_date)
@@ -75,3 +68,5 @@ VALUES
     (7, 1, 3, 'A07', '2023-04-05'),
     (8, 2, 3, 'A08', '2023-04-06')
 ON CONFLICT DO NOTHING;
+
+

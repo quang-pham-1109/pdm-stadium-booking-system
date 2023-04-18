@@ -6,11 +6,17 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 public interface SeatRepository extends JpaRepository<Seat, String> {
 
-    @Transactional
-    @Query("UPDATE Seat s SET s.isBooked = TRUE WHERE s.seatID = ?1")
+
+    @Query("SELECT s.seatID FROM Seat s")
+    List<String> findAllToString();
+
     @Modifying
-    public abstract void bookSeat(String seatID);
+    @Transactional
+    @Query("UPDATE Seat s SET s.price = ?1")
+    void updateAllSeatPrice(Integer price);
 }

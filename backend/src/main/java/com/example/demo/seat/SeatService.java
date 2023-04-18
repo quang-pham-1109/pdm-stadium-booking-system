@@ -1,15 +1,22 @@
 package com.example.demo.seat;
 
+import com.example.demo.booking.BookingRepository;
+import com.example.demo.event.EventRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class SeatService {
     public final SeatRepository seatRepository;
+    public final EventRepository eventRepository;
+    public final BookingRepository bookingRepository;
 
-    public SeatService(SeatRepository seatRepository) {
+    public SeatService(SeatRepository seatRepository, EventRepository eventRepository, BookingRepository bookingRepository) {
         this.seatRepository = seatRepository;
+        this.eventRepository = eventRepository;
+        this.bookingRepository = bookingRepository;
     }
 
     public List<Seat> getAllSeats() {
@@ -25,4 +32,22 @@ public class SeatService {
         return seatRepository.save(seat);
     }
 
+    public List<String> getAllBookedSeatByEventID(String eventID) {
+        return bookingRepository.findAllByEventID(eventID);
+    }
+
+    public List<String> getAllAvailableSeatsByEventID(String eventID) {
+        List<String> bookedSeats = new ArrayList<>();
+        bookedSeats = bookingRepository.findAllByEventID(eventID);
+        List<String> allSeats = new ArrayList<>();
+        allSeats = seatRepository.findAllToString();
+
+        List<String> availableSeats = new ArrayList<>();
+
+        if (bookedSeats != null) {
+            allSeats.removeAll(bookedSeats);
+            availableSeats = allSeats;
+        }
+        return availableSeats;
+    }
 }

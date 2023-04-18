@@ -20,9 +20,16 @@ public class SeatController {
         return ResponseEntity.ok(seatService.getAllSeats());
     }
 
-    @GetMapping(path = "/{seatID}")
-    public ResponseEntity<Seat> getSeatByID(@PathVariable("seatID") String seatID) {
-        return ResponseEntity.ok(seatService.getSeatByID(seatID));
+    @GetMapping(path = "booked/{eventID}")
+    public ResponseEntity<List<String>> getSeatsByEventID(@PathVariable("eventID")
+                                                            String eventID) {
+        return ResponseEntity.ok(seatService.getAllBookedSeatByEventID(eventID));
+    }
+
+    @GetMapping(path = "available/{eventID}")
+    public ResponseEntity<List<String>> getAvailableSeatsByEventID(@PathVariable("eventID")
+                                                            String eventID) {
+        return ResponseEntity.ok(seatService.getAllAvailableSeatsByEventID(eventID));
     }
 
     @PostMapping

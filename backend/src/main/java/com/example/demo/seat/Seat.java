@@ -7,6 +7,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.scheduling.support.SimpleTriggerContext;
 
+import java.util.List;
+
 @Entity
 @Table(name = "Seat")
 @Data
@@ -17,9 +19,8 @@ public class Seat {
     @Id
     @Column(name = "seat_id")
     private String seatID;
-    private Boolean isBooked;
     private Integer price;
 
-    @OneToOne(mappedBy = "seat")
-    private Booking booking;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "seat")
+    private List<Booking> booking;
 }
