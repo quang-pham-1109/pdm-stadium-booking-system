@@ -15,59 +15,53 @@ VALUES
 ON CONFLICT DO NOTHING;
 
 INSERT INTO event(
-    event_id, event_date, event_time, event_title)
-VALUES (1, '2023-04-16', '17:00:00', 'NCT DREAM TOUR THE DREAM SHOW2: IN A DREAM'),
-       (2, '2023-04-30', '18:00:00', 'BILLIE EILISH 2023 WORLD TOUR'),
-       (3, '2023-05-01', '9:00:00', 'BADMINTON OPEN 2023'),
-       (4, '2023-05-10', '19:00:00', 'FIFA WOMEN WORLD CUP: FRANCE V JAMAICA')
+    event_id, event_date, event_time, event_title, available_seats, total_seats)
+VALUES (1, '2023-04-16', '17:00:00', 'NCT DREAM TOUR THE DREAM SHOW2: IN A DREAM', 8, 10),
+       (2, '2023-04-30', '18:00:00', 'BILLIE EILISH 2023 WORLD TOUR', 7, 10),
+       (3, '2023-05-01', '9:00:00', 'BADMINTON OPEN 2023', 7, 10)
     ON CONFLICT DO NOTHING;
 
-INSERT INTO seat_zone(zone, cost)
-VALUES ('A',650),
-       ('B',500),
-       ('C',370)
-ON CONFLICT DO NOTHING;
-
-INSERT INTO seat(seat_id, zone, is_booked)
-VALUES ('A01', 'A', FALSE),
-       ('A02', 'A', FALSE),
-       ('A03', 'A', FALSE),
-       ('A04', 'A', FALSE),
-       ('A05', 'A', FALSE),
-       ('A06', 'A', FALSE),
-       ('A07', 'A', FALSE),
-       ('A08', 'A', FALSE),
-       ('A09', 'A', FALSE),
-       ('A10', 'A', FALSE)
+INSERT INTO seat(seat_id, event_id, is_booked)
+VALUES
+    ('A01', 1, TRUE),
+    ('A02', 1, FALSE),
+    ('A03', 1, FALSE),
+    ('A04', 1, FALSE),
+    ('A05', 1, FALSE),
+    ('A06', 1, TRUE),
+    ('A07', 1, FALSE),
+    ('A08', 1, FALSE),
+    ('A09', 1, FALSE),
+    ('A10', 1, FALSE)
 ON CONFLICT DO NOTHING;
 
 
-INSERT INTO seat(
-    seat_id, zone, is_booked)
-VALUES ('B01', 'B', FALSE),
-       ('B02', 'B', FALSE),
-       ('B03', 'B', FALSE),
-       ('B04', 'B', FALSE),
-       ('B05', 'B', FALSE),
-       ('B06', 'B', FALSE),
-       ('B07', 'B', FALSE),
-       ('B08', 'B', FALSE),
-       ('B09', 'B', FALSE),
-       ('B10', 'B',FALSE)
+INSERT INTO seat(seat_id, event_id, is_booked)
+VALUES
+    ('A01', 2, TRUE),
+    ('A02', 2, TRUE),
+    ('A03', 2, FALSE),
+    ('A04', 2, FALSE),
+    ('A05', 2, FALSE),
+    ('A06', 2, FALSE),
+    ('A07', 2, TRUE),
+    ('A08', 2, FALSE),
+    ('A09', 2, FALSE),
+    ('A10', 2, FALSE)
 ON CONFLICT DO NOTHING;
 
-INSERT INTO seat(
-    seat_id, zone, is_booked)
-VALUES ('C01', 'C', FALSE),
-       ('C02', 'C', FALSE),
-       ('C03', 'C', FALSE),
-       ('C04', 'C', FALSE),
-       ('C5', 'C', FALSE),
-       ('C06', 'C', FALSE),
-       ('C07', 'C', FALSE),
-       ('C08', 'C', FALSE),
-       ('C09', 'C', FALSE),
-       ('C10', 'C', FALSE)
+INSERT INTO seat(seat_id, event_id, is_booked)
+VALUES
+    ('A01', 3, FALSE),
+    ('A02', 3, TRUE),
+    ('A03', 3, FALSE),
+    ('A04', 3, FALSE),
+    ('A05', 3, FALSE),
+    ('A06', 3, FALSE),
+    ('A07', 3, TRUE),
+    ('A08', 3, TRUE),
+    ('A09', 3, FALSE),
+    ('A10', 3, FALSE)
 ON CONFLICT DO NOTHING;
 
 INSERT INTO booking(booking_id,customer_id, event_id, seat_id, booking_date)
@@ -75,9 +69,9 @@ VALUES
     (1, 1, 1, 'A01', '2023-03-30'),
     (2, 2, 1, 'A06', '2023-03-31'),
     (3, 3, 2, 'A01', '2023-03-31'),
-    (4, 4, 1, 'B01', '2023-04-02'),
-    (5, 1, 2, 'B07', '2023-04-01'),
-    (6, 1, 3, 'B02', '2023-04-05'),
-    (7, 1, 4, 'A07', '2023-04-05'),
-    (8, 2, 2, 'C07', '2023-04-06')
+    (4, 2, 2, 'A02', '2023-04-02'),
+    (5, 1, 2, 'A07', '2023-04-01'),
+    (6, 1, 3, 'A02', '2023-04-05'),
+    (7, 1, 3, 'A07', '2023-04-05'),
+    (8, 2, 3, 'A08', '2023-04-06')
 ON CONFLICT DO NOTHING;

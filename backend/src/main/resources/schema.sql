@@ -1,4 +1,16 @@
+drop sequence if exists customer_seq;
 
+drop sequence if exists  booking_seq;
+
+drop sequence if exists event_seq;
+
+drop table if exists booking;
+
+drop table if exists customer;
+
+drop table if exists seat;
+
+drop table if exists event;
 
 SELECT 'CREATE DATABASE stadium-booking'
 WHERE NOT EXISTS (SELECT FROM pg_database
@@ -15,6 +27,7 @@ CREATE TABLE IF NOT EXISTS customer (
         phone_number varchar(50),
         password varchar,
         role varchar(50),
+        booking_id int,
         primary key (customer_id)
     );
 
@@ -23,13 +36,16 @@ CREATE TABLE IF NOT EXISTS event (
         event_date date,
         event_time time,
 		event_title varchar(100),
+		available_seats int,
+		total_seats int,
         primary key (event_id)
     );
 
 CREATE TABLE IF NOT EXISTS seat (
         seat_id varchar(10) not null,
-        zone varchar(2),
         is_booked BOOLEAN NOT NULL ,
+        price int,
+        event_id int,
         primary key (seat_id)
     );
 
@@ -41,13 +57,6 @@ CREATE TABLE IF NOT EXISTS booking (
 		booking_date date,
         primary key (booking_id)
     );
-
-CREATE TABLE IF NOT EXISTS seat_zone (
-        zone varchar(2) not null,
-        cost integer,
-        PRIMARY KEY (zone)
-);
-
 ALTER TABLE booking DROP CONSTRAINT IF EXISTS FK_CustomerBooking;
 
 ALTER TABLE booking
@@ -69,13 +78,6 @@ ALTER TABLE booking
        foreign key (seat_id)
        references seat(seat_id);
 
-ALTER TABLE seat DROP CONSTRAINT IF EXISTS FK_SeatZoneSeat;
-
-ALTER TABLE seat
-    add constraint FK_SeatZoneSeat
-    foreign key (zone)
-    references seat_zone(zone);
-
 CREATE SEQUENCE IF NOT EXISTS customer_seq
     START WITH 6
     INCREMENT BY 1
@@ -84,14 +86,14 @@ CREATE SEQUENCE IF NOT EXISTS customer_seq
     CACHE 1;
 
 CREATE SEQUENCE IF NOT EXISTS booking_seq
-    START WITH 8
+    START WITH 9
     INCREMENT BY 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
 
 CREATE SEQUENCE IF NOT EXISTS event_seq
-    START WITH 5
+    START WITH 6
     INCREMENT BY 1
     NO MINVALUE
     NO MAXVALUE

@@ -1,11 +1,13 @@
 package com.example.demo.event;
 
 import com.example.demo.booking.Booking;
+import com.example.demo.seat.Seat;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -30,7 +32,13 @@ public class Event {
     @Column(name = "event_time")
     private Time eventTime;
 
+    @Column(name = "available_seats")
+    private Integer availableSeats;
+
+    @Column(name = "total_seats")
+    private Integer totalSeats;
+
     @OneToMany(mappedBy = "event")
-    private Set<Booking> booking;
+    private List<Seat> Seat;
 
 }
