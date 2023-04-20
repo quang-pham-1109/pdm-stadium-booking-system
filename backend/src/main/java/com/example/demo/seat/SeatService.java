@@ -10,13 +10,9 @@ import java.util.List;
 @Service
 public class SeatService {
     public final SeatRepository seatRepository;
-    public final EventRepository eventRepository;
-    public final BookingRepository bookingRepository;
 
     public SeatService(SeatRepository seatRepository, EventRepository eventRepository, BookingRepository bookingRepository) {
         this.seatRepository = seatRepository;
-        this.eventRepository = eventRepository;
-        this.bookingRepository = bookingRepository;
     }
 
     public List<Seat> getAllSeats() {
@@ -32,11 +28,11 @@ public class SeatService {
         return seatRepository.save(seat);
     }
 
-    public List<String> getAllBookedSeatByEventID(String eventID) {
+    public List<String> getAllBookedSeatByEventID(Integer eventID) {
         return seatRepository.findAllBookedSeatsByEvent(eventID);
     }
 
-    public List<String> getAllAvailableSeatsByEventID(String eventID) {
+    public List<String> getAllAvailableSeatsByEventID(Integer eventID) {
         return seatRepository.findAllAvailableSeatsByEventID(eventID);
     }
 }

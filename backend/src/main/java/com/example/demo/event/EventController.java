@@ -25,12 +25,4 @@ public class EventController {
     public ResponseEntity<Event> getEventByID(@PathVariable("eventID") Integer eventID) {
         return new ResponseEntity<Event>(eventService.getEventByID(eventID), HttpStatus.OK);
     }
-
-    @PostMapping
-    public ResponseEntity<Event> createEvent(@RequestBody Event event) {
-        return new ResponseEntity<Event>(eventService.createEvent(event), HttpStatus.CREATED);
-    }
-
-
-
 }

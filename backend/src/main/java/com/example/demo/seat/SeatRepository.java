@@ -15,12 +15,13 @@ public interface SeatRepository extends JpaRepository<Seat, String> {
 
     @Query("SELECT s.seatID FROM Seat s WHERE s.seatID NOT IN " +
             "(SELECT b.seatID FROM Booking b WHERE b.eventID = ?1)")
-    List<String> findAllAvailableSeatsByEventID();
+    List<String> findAllAvailableSeatsByEventID(Integer eventID);
 
     @Query("SELECT s.seatID FROM Seat s WHERE s.seatID IN " +
             "(SELECT b.seatID FROM Booking b WHERE b.eventID = ?1)")
-    List<String> findAllBookedSeatsByEvent(String seatID);
+    List<String> findAllBookedSeatsByEvent(Integer eventID);
 
     @Query("SELECT s FROM Seat s WHERE s.seatID = ?1")
-Optional<Seat> findSeatBySeatID(String seatID);
+    Optional<Seat> findSeatBySeatID(String seatID);
+
 }
