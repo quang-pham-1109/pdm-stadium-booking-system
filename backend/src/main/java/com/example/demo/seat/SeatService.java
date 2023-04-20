@@ -26,4 +26,8 @@ public class SeatService {
     public List<String> getAllAvailableSeatsByEventID(Integer eventID) {
         return seatRepository.findAllAvailableSeatsByEventID(eventID);
     }
+
+    public Integer getSeatCost(String seatID) {
+        return seatRepository.findCostOfSeatBySeatID(seatID);
+    }
 }

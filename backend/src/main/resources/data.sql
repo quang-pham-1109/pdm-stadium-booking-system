@@ -17,13 +17,24 @@ VALUES
 ON CONFLICT DO NOTHING ;
 
 INSERT INTO event(
-    event_id, event_date, event_time, event_title, available_seats, total_seats)
+                  event_id,
+                  event_date,
+                  event_time,
+                  event_title,
+                  available_seats,
+                  total_seats)
 VALUES (1, '2023-04-16', '17:00:00', 'NCT DREAM TOUR THE DREAM SHOW2: IN A DREAM', 8, 10),
        (2, '2023-04-30', '18:00:00', 'BILLIE EILISH 2023 WORLD TOUR', 7, 10),
        (3, '2023-05-01', '9:00:00', 'BADMINTON OPEN 2023', 7, 10)
     ON CONFLICT DO NOTHING;
 
-INSERT INTO seat(seatid, zone)
+INSERT INTO seat_zone(zone, cost)
+VALUES ('A',650),
+       ('B',500),
+       ('C',370)
+ON CONFLICT DO NOTHING;
+
+INSERT INTO seat(seat_id, zone)
 VALUES
     ('A01', 'A'),
     ('A02', 'A'),
@@ -69,10 +80,6 @@ VALUES
     (8, 2, 3, 'A08', '2023-04-06')
 ON CONFLICT DO NOTHING;
 
-INSERT INTO seatZone(zone, cost)
-VALUES ('A',650),
-       ('B',500),
-       ('C',370)
-ON CONFLICT DO NOTHING;
+
 
 

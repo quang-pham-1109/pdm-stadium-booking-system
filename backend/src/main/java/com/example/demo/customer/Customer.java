@@ -44,10 +44,8 @@ public class Customer implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
     private List<Booking> booking;
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

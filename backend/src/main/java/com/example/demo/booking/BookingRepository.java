@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 public interface BookingRepository extends JpaRepository<Booking, Integer> {
 
@@ -32,6 +33,16 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
 
     @Query("SELECT b.seatID FROM Booking b WHERE b.eventID = ?1")
     List<String> findAllByEventID(String eventID);
+
+    @Query("SELECT sz.cost " +
+            "FROM SeatZone sz, Seat s, Booking b " +
+            "WHERE b.bookingID = ?1 " +
+            "AND b.seatID = s.seatID " +
+            "AND s.zone = sz.zone")
+    Integer findCostOfBooking(Integer bookingID);
+
+    @Query("SELECT b FROM Booking b WHERE b.bookingID = ?1")
+    Optional<Booking> getBookingByBookingID(Integer bookingID);
 
     @Override
     @Query("SELECT b FROM Booking b")
