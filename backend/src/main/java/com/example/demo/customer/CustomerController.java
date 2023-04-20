@@ -18,30 +18,30 @@ public class CustomerController {
 
     @GetMapping
     public ResponseEntity<List<Customer>> getCustomers() {
-        return new  ResponseEntity<List<Customer>>(customerService.getAllCustomer(), HttpStatus.OK);
+        return new  ResponseEntity<>(customerService.getAllCustomer(), HttpStatus.OK);
     }
 
     @GetMapping(path = "{id}")
     public ResponseEntity<Customer> getCustomerById(@PathVariable("id") Integer id) {
-        return new ResponseEntity<Customer>(customerService.getCustomerById(id), HttpStatus.OK);
+        return new ResponseEntity<>(customerService.getCustomerById(id), HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<Customer> addCustomer(@RequestBody Customer customer) {
         customerService.addNewCustomer(customer);
-        return new ResponseEntity<Customer>(customer, HttpStatus.CREATED);
+        return new ResponseEntity<>(customer, HttpStatus.CREATED);
     }
 
     @DeleteMapping(path = "{id}")
     public ResponseEntity<Customer> deleteCustomer(@PathVariable("id") Integer customerId) {
         customerService.deleteCustomer(customerId);
-        return new ResponseEntity<Customer>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping(path = "{id}")
     public ResponseEntity<Customer> updateCustomer(@PathVariable("id") Integer customerId,
                                                    @RequestBody Customer customer){
         customerService.updateCustomer(customerId, customer);
-        return new ResponseEntity<Customer>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

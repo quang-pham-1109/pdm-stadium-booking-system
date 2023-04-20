@@ -18,11 +18,11 @@ public class EventController {
 
     @GetMapping
     public ResponseEntity<List<Event>> getEvents() {
-        return new ResponseEntity<List<Event>>(eventService.getAllEvents(), HttpStatus.OK);
+        return new ResponseEntity<>(eventService.getAllEvents(), HttpStatus.OK);
     }
 
     @GetMapping(path = "/{eventID}")
     public ResponseEntity<Event> getEventByID(@PathVariable("eventID") Integer eventID) {
-        return new ResponseEntity<Event>(eventService.getEventByID(eventID), HttpStatus.OK);
+        return new ResponseEntity<>(eventService.getEventByID(eventID), HttpStatus.OK);
     }
 }
