@@ -19,7 +19,9 @@ public class Seat {
     @Id
     @Column(name = "seat_id")
     private String seatID;
-    private Integer price;
+
+    @Column(name = "zone")
+    private String zone;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "seat")
     private List<Booking> booking;

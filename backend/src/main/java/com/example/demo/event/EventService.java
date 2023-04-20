@@ -12,10 +12,6 @@ public class EventService {
         this.eventRepository = eventRepository;
     }
 
-    public Event createEvent(Event event) {
-        return eventRepository.save(event);
-    }
-
     public List<Event> getAllEvents() {
         return eventRepository.findAll();
     }

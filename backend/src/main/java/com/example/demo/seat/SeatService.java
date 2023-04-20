@@ -10,33 +10,20 @@ import java.util.List;
 @Service
 public class SeatService {
     public final SeatRepository seatRepository;
-    public final EventRepository eventRepository;
-    public final BookingRepository bookingRepository;
 
-    public SeatService(SeatRepository seatRepository, EventRepository eventRepository, BookingRepository bookingRepository) {
+    public SeatService(SeatRepository seatRepository) {
         this.seatRepository = seatRepository;
-        this.eventRepository = eventRepository;
-        this.bookingRepository = bookingRepository;
     }
 
     public List<Seat> getAllSeats() {
         return seatRepository.findAll();
     }
 
-    public Seat getSeatByID(String seatID) {
-        return seatRepository.findById(seatID).
-                orElseThrow(() -> new IllegalStateException("Seat does not exist"));
-    }
-
-    public Seat createSeat(Seat seat) {
-        return seatRepository.save(seat);
-    }
-
-    public List<String> getAllBookedSeatByEventID(String eventID) {
+    public List<String> getAllBookedSeatByEventID(Integer eventID) {
         return seatRepository.findAllBookedSeatsByEvent(eventID);
     }
 
-    public List<String> getAllAvailableSeatsByEventID(String eventID) {
+    public List<String> getAllAvailableSeatsByEventID(Integer eventID) {
         return seatRepository.findAllAvailableSeatsByEventID(eventID);
     }
 }

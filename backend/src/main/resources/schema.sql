@@ -1,16 +1,12 @@
-drop sequence if exists customer_seq;
+DROP SEQUENCE IF EXISTS booking_seq;
 
-drop sequence if exists  booking_seq;
+DROP SEQUENCE IF EXISTS event_seq;
 
-drop sequence if exists event_seq;
+DROP TABLE IF EXISTS customer;
 
-drop table if exists booking;
+DROP TABLE IF EXISTS seat;
 
-drop table if exists customer;
-
-drop table if exists seat;
-
-drop table if exists event;
+DROP TABLE IF EXISTS event;
 
 SELECT 'CREATE DATABASE stadium-booking'
 WHERE NOT EXISTS (SELECT FROM pg_database
@@ -18,12 +14,12 @@ WHERE NOT EXISTS (SELECT FROM pg_database
 
 
 CREATE TABLE IF NOT EXISTS customer (
-        customer_id int not null,
+        customer_id int NOT NULL,
         address varchar(50),
         date_of_birth date,
         email varchar(50),
-        first_name varchar(50) not null,
-        last_name varchar(50) not null,
+        first_name varchar(50) NOT NULL,
+        last_name varchar(50) NOT NULL,
         phone_number varchar(50),
         password varchar,
         role varchar(50),
@@ -32,7 +28,7 @@ CREATE TABLE IF NOT EXISTS customer (
     );
 
 CREATE TABLE IF NOT EXISTS event (
-        event_id int not null,
+        event_id int NOT NULL,
         event_date date,
         event_time time,
 		event_title varchar(100),
@@ -42,39 +38,56 @@ CREATE TABLE IF NOT EXISTS event (
     );
 
 CREATE TABLE IF NOT EXISTS seat (
-        seat_id varchar(10) not null,
-        price int,
+        seat_id varchar(10) NOT NULL,
+        seat_zone varchar(2),
+        zone varchar(2),
         primary key (seat_id)
     );
 
+CREATE TABLE IF NOT EXISTS seatZone (
+    zone varchar(2) NOT NULL,
+    Cost decimal(10,2),
+    PRIMARY KEY (zone)
+);
+
+
 CREATE TABLE IF NOT EXISTS booking (
-        booking_id int not null,
-        customer_id int not null,
+        booking_id int NOT NULL,
+        customer_id int NOT NULL,
         event_id int,
         seat_id varchar(10),
 		booking_date date,
         primary key (booking_id)
     );
+
+
 ALTER TABLE booking DROP CONSTRAINT IF EXISTS FK_CustomerBooking;
 
 ALTER TABLE booking
-       add constraint FK_CustomerBooking
-       foreign key (customer_id)
-       references customer(customer_id);
+       ADD CONSTRAINT FK_CustomerBooking
+       FOREIGN KEY (customer_id)
+       REFERENCES customer(customer_id);
 
 ALTER TABLE booking DROP CONSTRAINT IF EXISTS FK_EventBooking;
 
 ALTER TABLE booking
-       add constraint FK_EventBooking
-       foreign key (event_id)
-       references event(event_id);
+       ADD CONSTRAINT FK_EventBooking
+       FOREIGN KEY (event_id)
+       REFERENCES event(event_id);
 
 ALTER TABLE booking DROP CONSTRAINT IF EXISTS FK_SeatBooking;
 
 ALTER TABLE booking
-       add constraint FK_SeatBooking
-       foreign key (seat_id)
-       references seat(seat_id);
+       ADD CONSTRAINT FK_SeatBooking
+       FOREIGN KEY (seat_id)
+       REFERENCES seat(seat_id);
+
+ALTER TABLE seat DROP CONSTRAINT IF EXISTS FK_SeatZoneSeat;
+
+ALTER TABLE seat
+    ADD CONSTRAINT FK_SeatZoneSeat
+    FOREIGN KEY (zone)
+    REFERENCES seatZone(zone);
 
 CREATE SEQUENCE IF NOT EXISTS customer_seq
     START WITH 6

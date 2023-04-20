@@ -26,15 +26,30 @@ public class BookingService {
     }
 
     public Booking createBooking(Booking booking, Integer customerID) {
-        if (eventRepository.findAvailableSeatsByEventID(booking.getEventID()).get() == 0) {
+        //Check if seat is available
+        if (seatRepository.findAllAvailableSeatsByEventID(
+                booking.getEventID()).size() == 0) {
             throw new IllegalStateException("No available seats");
         }
-        eventRepository.findEventByEventID(booking.getEventID()).
-                orElseThrow(() -> new IllegalStateException("Event does not exist")); //check if event exists
-        booking.setCustomer(customerRepository.findById(customerID).
-                orElseThrow(() -> new IllegalStateException("Customer does not exist"))); //check if customer exists
 
-        eventRepository.decreaseAvailableSeatsByEventID(booking.getEventID()); //decrease available seats by 1
+        //Check if seat is booked
+        if (seatRepository.findAllBookedSeatsByEvent(
+                booking.getEventID()).
+                contains(booking.getSeatID())) {
+            throw new IllegalStateException("Seat is already booked");
+        }
+
+        //Check if event exists
+        eventRepository.findEventByEventID(booking.getEventID()).
+                orElseThrow(() -> new IllegalStateException("Event does not exist"));
+
+        //Check if customer exists
+        booking.setCustomer(customerRepository.findById(customerID).
+                orElseThrow(() -> new IllegalStateException("Customer does not exist")));
+
+        //Decrease seat amounts of event
+        eventRepository.decreaseAvailableSeatsByEventID(booking.getEventID());
+
         var newBooking = Booking.builder()
                 .bookingDate(new Date())
                 .event(eventRepository.findEventByEventID(booking.getEventID()).get())
