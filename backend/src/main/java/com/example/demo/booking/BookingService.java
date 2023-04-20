@@ -59,6 +59,12 @@ public class BookingService {
 
         return bookingRepository.save(newBooking);
     }
+    public Integer checkCost(Integer bookingID) {
+        bookingRepository.getBookingByBookingID(bookingID).
+                orElseThrow(() -> new IllegalStateException("Booking does not exist"));
+        return bookingRepository.findCostOfBooking(bookingID);
+    }
+
     public List<Booking> getAllBookings() {
         return bookingRepository.findAll();
     }

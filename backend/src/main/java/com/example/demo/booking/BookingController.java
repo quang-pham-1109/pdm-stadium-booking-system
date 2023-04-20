@@ -17,15 +17,26 @@ public class BookingController {
 
     @GetMapping
     public ResponseEntity<List<Booking>> getBookings() {
-        return new ResponseEntity<List<Booking>>(
+        return new ResponseEntity<>(
                 bookingService.getAllBookings(),
                 HttpStatus.OK);
     }
 
     @GetMapping(path = "/{bookingID}")
-    public ResponseEntity<Booking> getBookingByID(@PathVariable("bookingID") Integer bookingID) {
-        return new ResponseEntity<Booking>(
+    public ResponseEntity<Booking> getBookingByID(
+            @PathVariable("bookingID")
+            Integer bookingID) {
+        return new ResponseEntity<>(
                 bookingService.getBookingByID(bookingID),
+                HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/check-cost/{booking-id}")
+    public ResponseEntity<Integer> checkPrice(
+            @PathVariable("booking-id")
+            Integer bookingID) {
+        return new ResponseEntity<>(
+                bookingService.checkCost(bookingID),
                 HttpStatus.OK);
     }
 
@@ -33,7 +44,7 @@ public class BookingController {
     public ResponseEntity<Booking> createBooking(
             @PathVariable("customerID") Integer customerID,
             @RequestBody Booking booking) {
-        return new ResponseEntity<Booking>(
+        return new ResponseEntity<>(
                 bookingService.createBooking(booking, customerID),
                 HttpStatus.CREATED);
     }
