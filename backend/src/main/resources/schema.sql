@@ -2,11 +2,11 @@ DROP SEQUENCE IF EXISTS booking_seq;
 
 DROP SEQUENCE IF EXISTS event_seq;
 
-DROP TABLE IF EXISTS customer;
+DROP TABLE IF EXISTS customer CASCADE ;
 
-DROP TABLE IF EXISTS seat;
+DROP TABLE IF EXISTS seat CASCADE ;
 
-DROP TABLE IF EXISTS event;
+DROP TABLE IF EXISTS event CASCADE ;
 
 SELECT 'CREATE DATABASE stadium-booking'
 WHERE NOT EXISTS (SELECT FROM pg_database
@@ -39,14 +39,13 @@ CREATE TABLE IF NOT EXISTS event (
 
 CREATE TABLE IF NOT EXISTS seat (
         seat_id varchar(10) NOT NULL,
-        seat_zone varchar(2),
         zone varchar(2),
         primary key (seat_id)
     );
 
-CREATE TABLE IF NOT EXISTS seatZone (
+CREATE TABLE IF NOT EXISTS seat_zone (
     zone varchar(2) NOT NULL,
-    Cost decimal(10,2),
+    cost int,
     PRIMARY KEY (zone)
 );
 
@@ -87,7 +86,7 @@ ALTER TABLE seat DROP CONSTRAINT IF EXISTS FK_SeatZoneSeat;
 ALTER TABLE seat
     ADD CONSTRAINT FK_SeatZoneSeat
     FOREIGN KEY (zone)
-    REFERENCES seatZone(zone);
+    REFERENCES seat_zone(zone);
 
 CREATE SEQUENCE IF NOT EXISTS customer_seq
     START WITH 6
