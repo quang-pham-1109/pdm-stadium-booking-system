@@ -31,4 +31,10 @@ public class SeatController {
                                                             Integer eventID) {
         return ResponseEntity.ok(seatService.getAllAvailableSeatsByEventID(eventID));
     }
+
+    @GetMapping(path = "cost/{seatID}")
+    public ResponseEntity<Integer> getSeatCost(@PathVariable("seatID")
+                                                         String seatID) {
+        return ResponseEntity.ok(seatService.getSeatCost(seatID));
+    }
 }

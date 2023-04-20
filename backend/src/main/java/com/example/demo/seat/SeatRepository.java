@@ -24,4 +24,9 @@ public interface SeatRepository extends JpaRepository<Seat, String> {
     @Query("SELECT s FROM Seat s WHERE s.seatID = ?1")
     Optional<Seat> findSeatBySeatID(String seatID);
 
+    @Query("SELECT sz.cost " +
+            "FROM SeatZone sz, Seat s " +
+            "WHERE s.seatID = ?1 " +
+            "AND s.zone = sz.zone")
+    Integer findCostOfSeatBySeatID(String seatID);
 }
