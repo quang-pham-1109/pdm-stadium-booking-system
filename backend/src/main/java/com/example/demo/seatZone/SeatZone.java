@@ -1,13 +1,13 @@
 package com.example.demo.seatZone;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.example.demo.seat.Seat;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @Builder
@@ -21,6 +21,9 @@ public class SeatZone {
 
     @Column(name = "cost")
     private Integer cost;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "seatZone")
+    private List<Seat> seat;
 }
 
 

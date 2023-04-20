@@ -1,12 +1,14 @@
-DROP SEQUENCE IF EXISTS booking_seq;
+drop sequence if exists customer_seq cascade;
 
-DROP SEQUENCE IF EXISTS event_seq;
+drop table if exists seat_zone cascade;
 
-DROP TABLE IF EXISTS customer CASCADE ;
+drop table if exists booking cascade;
 
-DROP TABLE IF EXISTS seat CASCADE ;
+drop table if exists customer cascade;
 
-DROP TABLE IF EXISTS event CASCADE ;
+drop table if exists event cascade;
+
+drop table if exists seat cascade;
 
 SELECT 'CREATE DATABASE stadium-booking'
 WHERE NOT EXISTS (SELECT FROM pg_database
