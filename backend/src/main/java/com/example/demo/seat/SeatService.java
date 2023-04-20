@@ -11,21 +11,12 @@ import java.util.List;
 public class SeatService {
     public final SeatRepository seatRepository;
 
-    public SeatService(SeatRepository seatRepository, EventRepository eventRepository, BookingRepository bookingRepository) {
+    public SeatService(SeatRepository seatRepository) {
         this.seatRepository = seatRepository;
     }
 
     public List<Seat> getAllSeats() {
         return seatRepository.findAll();
-    }
-
-    public Seat getSeatByID(String seatID) {
-        return seatRepository.findById(seatID).
-                orElseThrow(() -> new IllegalStateException("Seat does not exist"));
-    }
-
-    public Seat createSeat(Seat seat) {
-        return seatRepository.save(seat);
     }
 
     public List<String> getAllBookedSeatByEventID(Integer eventID) {
