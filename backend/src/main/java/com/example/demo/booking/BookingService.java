@@ -73,4 +73,11 @@ public class BookingService {
         return bookingRepository.findById(bookingID).
                 orElseThrow(() -> new IllegalStateException("Booking does not exist"));
     }
+
+    public void deleteBooking(Integer bookingID, Integer customerID) {
+        if (bookingRepository.getBookingsByCustomerID(customerID).size() == 0) {
+            throw new IllegalStateException("Customer has no bookings");
+        }
+        bookingRepository.deleteBooking(bookingID, customerID);
+    }
 }

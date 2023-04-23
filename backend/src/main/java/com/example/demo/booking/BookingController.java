@@ -49,4 +49,13 @@ public class BookingController {
                 HttpStatus.CREATED);
     }
 
+    @DeleteMapping(path = "/{bookingID}/{customerID}")
+    public ResponseEntity<Booking> deleteBooking(
+            @PathVariable("bookingID")
+            Integer bookingID,
+            @PathVariable("customerID")
+            Integer customerID) {
+        bookingService.deleteBooking(bookingID, customerID);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
