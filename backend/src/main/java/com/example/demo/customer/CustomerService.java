@@ -43,37 +43,50 @@ public class CustomerService {
     }
 
     @Transactional
-    public void updateCustomer(Integer customerId, Customer customer){
-        Customer customer1 = customerRepository.findCustomerByCustomerId(customerId).
-                orElseThrow(() -> new IllegalStateException("Customer does not exist"));
-        if(customer.getFirstName() != null && customer.getFirstName().length() > 0 &&
-                !Objects.equals(customer1.getFirstName(), customer.getFirstName())){
-            customer1.setFirstName(customer.getFirstName());
+    public void updateCustomer(Integer customerId,
+                               Customer customer){
+        Customer editedCustomer = customerRepository.findById(customerId).
+                orElseThrow(() -> new IllegalStateException(
+                        "customer with id " + customerId + "does not exist"));
+        //Check and edit first name
+        if (customer.getFirstName() != null &&
+                customer.getFirstName().length() > 0 &&
+                !Objects.equals(editedCustomer.getFirstName(), customer.getFirstName())){
+            editedCustomer.setFirstName(customer.getFirstName());
         }
-        if(customer.getLastName() != null && customer.getLastName().length() > 0 &&
-                !Objects.equals(customer1.getLastName(), customer.getLastName())){
-            customer1.setLastName(customer.getLastName());
+        //Check and edit last name
+        if (customer.getLastName() != null &&
+                customer.getLastName().length() > 0 &&
+                !Objects.equals(editedCustomer.getLastName(), customer.getLastName())){
+            editedCustomer.setLastName(customer.getLastName());
         }
-        if(customer.getDateOfBirth() != null  &&
-                !Objects.equals(customer1.getDateOfBirth(), customer.getDateOfBirth())){
-            customer1.setDateOfBirth(customer.getDateOfBirth());
-        }
-        if(customer.getPhoneNumber() != null && customer.getPhoneNumber().length() > 0 &&
-                !Objects.equals(customer1.getPhoneNumber(), customer.getPhoneNumber())){
-            customer1.setPhoneNumber(customer.getPhoneNumber());
-        }
-        if(customer.getEmail() != null && customer.getEmail().length() > 0 &&
-                !Objects.equals(customer1.getEmail(), customer.getEmail())){
+        //Check and edit email address
+        if (customer.getEmail() != null &&
+                customer.getEmail().length() > 0 &&
+                !Objects.equals(editedCustomer.getEmail(), customer.getEmail())){
             Optional<Customer> customerOptional = customerRepository.
                     findCustomerByEmail(customer.getEmail());
             if(customerOptional.isPresent()){
                 throw new IllegalStateException("email taken");
             }
-            customer1.setEmail(customer.getEmail());
+            editedCustomer.setEmail(customer.getEmail());
         }
-        if(customer.getAddress() != null && customer.getAddress().length() > 0 &&
-                !Objects.equals(customer1.getAddress(), customer.getAddress())){
-            customer1.setAddress(customer.getAddress());
+        //Check and edit date of birth
+        if (customer.getDateOfBirth() != null &&
+                !Objects.equals(editedCustomer.getDateOfBirth(), customer.getDateOfBirth())) {
+            editedCustomer.setDateOfBirth(customer.getDateOfBirth());
+        }
+        //Check and edit address
+        if (customer.getAddress() != null &&
+                customer.getAddress().length() > 0 &&
+                !Objects.equals(editedCustomer.getAddress(), customer.getAddress())){
+            editedCustomer.setAddress(customer.getAddress());
+        }
+        //Check and edit phone number
+        if (customer.getPhoneNumber() != null &&
+                customer.getPhoneNumber().length() > 0 &&
+                !Objects.equals(editedCustomer.getPhoneNumber(), customer.getPhoneNumber())){
+            editedCustomer.setPhoneNumber(customer.getPhoneNumber());
         }
     }
 }
