@@ -19,4 +19,9 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
     @Modifying
     @Query("UPDATE Event e SET e.availableSeats = e.availableSeats - 1 WHERE e.eventID = ?1")
     void decreaseAvailableSeatsByEventID(Integer eventID);
+
+    @Transactional
+    @Modifying
+    @Query("DELETE FROM Event e WHERE e.eventID = ?1")
+    void deleteById(Integer eventID);
 }

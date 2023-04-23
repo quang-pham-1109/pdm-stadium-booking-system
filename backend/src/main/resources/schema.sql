@@ -67,21 +67,21 @@ ALTER TABLE booking DROP CONSTRAINT IF EXISTS FK_CustomerBooking;
 ALTER TABLE booking
        ADD CONSTRAINT FK_CustomerBooking
        FOREIGN KEY (customer_id)
-       REFERENCES customer(customer_id);
+       REFERENCES customer(customer_id) ON DELETE CASCADE;
 
 ALTER TABLE booking DROP CONSTRAINT IF EXISTS FK_EventBooking;
 
 ALTER TABLE booking
        ADD CONSTRAINT FK_EventBooking
        FOREIGN KEY (event_id)
-       REFERENCES event(event_id);
+       REFERENCES event(event_id) ON DELETE CASCADE;
 
 ALTER TABLE booking DROP CONSTRAINT IF EXISTS FK_SeatBooking;
 
 ALTER TABLE booking
        ADD CONSTRAINT FK_SeatBooking
        FOREIGN KEY (seat_id)
-       REFERENCES seat(seat_id);
+       REFERENCES seat(seat_id) ON DELETE CASCADE;
 
 ALTER TABLE seat DROP CONSTRAINT IF EXISTS FK_SeatZoneSeat;
 
