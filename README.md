@@ -27,11 +27,14 @@ git clone https://github.com/quang-pham-1109/pdm-stadium-booking-system.git
 ```
 
 **2. Setup your PostgreSQL database**
-The database will be created automatically when the Spring Boot application is ran
-+ open `/backend/src/main/resources/.env`
-+ change `USER`, `USER` and `PORT` as per your PostgreSQL installation
+
+Download PostgreSQL if you haven't. The database will be created automatically when the Spring Boot application is ran
++ Open `/backend/src/main/resources/.env`
++ Change `USER`, `USER` and `PORT` as per your PostgreSQL installation
++ Database's configuration and Sample data can be seen in `/resources/schema.sql` and `/resources/data.sql` 
 
 **3. Run the app using Maven**
+Download maven if you haven't and navigate to src folder to run the project
 ```bash
 mvn spring-boot:run
 ```
