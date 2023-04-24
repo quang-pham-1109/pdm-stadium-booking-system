@@ -91,7 +91,7 @@ The app supports the following requests
 | Method | Url | Decription | Sample Valid Request Body | 
 | ------ | --- | ---------- | --------------------------- |
 | GET    | /api/v1/seat-zone | Get all Seat Zone information and pricing | |
-| PUT    | /api/v1/seat-zone/{zone}/{price} | Change seat zone price by {price} | | 
+| PUT    | /api/v1/seat-zone/{zone}/{price} | Change seat zone price by {price} |[JSON](#editseatzoneprice) | 
 
 ## Sample Valid JSONs Request Body
 
@@ -146,7 +146,7 @@ The app supports the following requests
     "eventName": FNATIC vs NRG: VCT Finals.
 }
 ```
-
+#### <a id="editseatzoneprice">Change Seat Zone A price to 100. PUT -> /api/v1/seat-zone/*A*/*100* </a>
 
 
 
