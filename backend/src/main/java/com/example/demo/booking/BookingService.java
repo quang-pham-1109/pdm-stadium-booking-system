@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class BookingService {
@@ -72,5 +73,38 @@ public class BookingService {
     public Booking getBookingByID(Integer bookingID) {
         return bookingRepository.findById(bookingID).
                 orElseThrow(() -> new IllegalStateException("Booking does not exist"));
+    }
+
+    public void deleteBooking(Integer bookingID, Integer customerID) {
+        if (bookingRepository.getBookingsByCustomerID(customerID).size() == 0) {
+            throw new IllegalStateException("Customer has no bookings");
+        }
+        bookingRepository.deleteBooking(bookingID, customerID);
+    }
+
+    public void updateBooking(Integer bookingID, Booking booking) {
+        Booking editedBooking = bookingRepository.findById(bookingID).
+                orElseThrow(() -> new IllegalStateException(
+                        "booking with id " + bookingID + "does not exist"));
+        //Check and edit booking date
+        if (booking.getBookingDate() != null &&
+                !Objects.equals(editedBooking.getBookingDate(), booking.getBookingDate())) {
+            editedBooking.setBookingDate(booking.getBookingDate());
+        }
+        //Check and edit booking seat
+        if (booking.getSeatID() != null &&
+                !Objects.equals(editedBooking.getSeatID(), booking.getSeatID())) {
+            editedBooking.setSeatID(booking.getSeatID());
+        }
+        //Check and edit booking event
+        if (booking.getEventID() != null &&
+                !Objects.equals(editedBooking.getEventID(), booking.getEventID())) {
+            editedBooking.setEventID(booking.getEventID());
+        }
+        //Check and edit booking customer
+        if (booking.getCustomerID() != null &&
+                !Objects.equals(editedBooking.getCustomerID(), booking.getCustomerID())) {
+            throw new IllegalStateException("Customer cannot be changed");
+        }
     }
 }

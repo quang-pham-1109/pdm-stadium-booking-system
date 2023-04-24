@@ -1,6 +1,7 @@
 package com.example.demo.customer;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -14,5 +15,7 @@ public interface CustomerRepository extends
 
     @Query("SELECT c FROM Customer c WHERE c.customerId = ?1")
     Optional<Customer> findCustomerByCustomerId(Integer customerId);
+
+
 
 }

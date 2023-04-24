@@ -44,7 +44,13 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
     @Query("SELECT b FROM Booking b WHERE b.bookingID = ?1")
     Optional<Booking> getBookingByBookingID(Integer bookingID);
 
-    @Override
-    @Query("SELECT b FROM Booking b")
-    List<Booking> findAll();
+    @Query("SELECT b FROM Booking b WHERE b.customerID = ?1")
+    List<Booking> getBookingsByCustomerID(Integer customerID);
+
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM Booking b " +
+            "WHERE b.bookingID = ?1 " +
+            "AND b.customerID = ?2")
+    void deleteBooking(Integer bookingID, Integer customerID);
 }
