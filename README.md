@@ -143,7 +143,7 @@ The app supports the following requests
 #### <a id="editanevent">Edit an event with ID 1. PUT -> /api/v1/event/*1* </a>
 ```json
 {
-    "eventName": FNATIC vs NRG: VCT Finals.
+    "eventName": "FNATIC vs NRG: VCT Finals".
 }
 ```
 #### <a id="editseatzoneprice">Change Seat Zone A price to 100. PUT -> /api/v1/seat-zone/*A*/*100* </a>
