@@ -58,4 +58,13 @@ public class BookingController {
         bookingService.deleteBooking(bookingID, customerID);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PutMapping(path = "/{bookingID}")
+    public ResponseEntity<Booking> updateBooking(
+            @PathVariable("bookingID")
+            Integer bookingID,
+            @RequestBody Booking booking) {
+        bookingService.updateBooking(bookingID, booking);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
