@@ -1,9 +1,8 @@
 package com.example.demo.seatZone;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,4 +19,11 @@ public class SeatZoneController {
     public ResponseEntity<List<SeatZone>> getSeatZone() {
         return ResponseEntity.ok(seatZoneService.getAllSeatZone());
     }
+
+    @PutMapping(path = "/{zone}/{price}")
+    public ResponseEntity<SeatZone> updatePriceOfSeatZone(
+            @PathVariable("zone") String zone,
+            @PathVariable("price") Integer price) {
+        seatZoneService.updatePriceOfSeatZone(zone, price);
+        return new ResponseEntity<>(HttpStatus.OK);    }
 }

@@ -1,6 +1,7 @@
 package com.example.demo.seatZone;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,5 +15,13 @@ public class SeatZoneService {
 
     public List<SeatZone> getAllSeatZone() {
         return seatZoneRepository.findAll();
+    }
+
+    @Transactional
+    public void updatePriceOfSeatZone(String zone, Integer price) {
+        seatZoneRepository.findById(zone).ifPresent(seatZone -> {
+            seatZone.setCost(price);
+            seatZoneRepository.save(seatZone);
+        });
     }
 }
