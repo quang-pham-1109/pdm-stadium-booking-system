@@ -34,6 +34,7 @@ Download PostgreSQL if you haven't. The database will be created automatically w
 + Database's configuration and Sample data can be seen in `/resources/schema.sql` and `/resources/data.sql` 
 
 **3. Run the app using Maven**
+
 Download maven if you haven't and navigate to src folder to run the project
 ```bash
 mvn spring-boot:run
@@ -66,6 +67,7 @@ The app supports the following requests
 | GET    | /api/v1/booking | Get the information of all existing bookings | |
 | GET    | /api/v1/booking/{bookingID} | Get information of a booking by bookingID | |
 | GET    | /api/v1/booking/check-cost/{booking-id} | Get the cost of a booking by bookingID | |
+| GET    | /api/v1/booking/customer/{customerID} | Get all booking of a customer by customerID | |
 | POST   | /api/v1/booking/{customerID} | Book a seat from an event of a customer by customerID | [JSON](#bookaseat) |
 | PUT    | /api/v1/booking/{bookingID}/{customerID} | Edit information of a booking | [JSON](#editabooking) |
 | DELETE | /api/v1/booking/{bookingID} | Delete a booking | | |
