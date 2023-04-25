@@ -107,4 +107,10 @@ public class BookingService {
             throw new IllegalStateException("Customer cannot be changed");
         }
     }
+
+    public List<Booking> getBookingsByCustomerID(Integer customerID) {
+        if (bookingRepository.getBookingsByCustomerID(customerID).size() == 0) {
+            throw new IllegalStateException("Customer has no bookings");
+        } else return bookingRepository.getBookingsByCustomerID(customerID);
+    }
 }
