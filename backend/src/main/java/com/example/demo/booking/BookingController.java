@@ -40,6 +40,15 @@ public class BookingController {
                 HttpStatus.OK);
     }
 
+    @GetMapping(path = "/customer/{customerID}")
+    public ResponseEntity<List<Booking>> getBookingsByCustomerID(
+            @PathVariable("customerID")
+            Integer customerID) {
+        return new ResponseEntity<>(
+                bookingService.getBookingsByCustomerID(customerID),
+                HttpStatus.OK);
+    }
+
     @PostMapping(path = "/{customerID}")
     public ResponseEntity<Booking> createBooking(
             @PathVariable("customerID") Integer customerID,
