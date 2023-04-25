@@ -62,15 +62,14 @@ The app supports the following requests
 
 ### Booking
 
-| Method | Url | Decription | Sample Valid Request Body | 
-| ------ | --- | ---------- | --------------------------- |
-| GET    | /api/v1/booking | Get the information of all existing bookings | |
-| GET    | /api/v1/booking/{bookingID} | Get information of a booking by bookingID | |
-| GET    | /api/v1/booking/check-cost/{booking-id} | Get the cost of a booking by bookingID | |
-| GET    | /api/v1/booking/customer/{customerID} | Get all booking of a customer by customerID | |
-| POST   | /api/v1/booking/{customerID} | Book a seat from an event of a customer by customerID | [JSON](#bookaseat) |
-| PUT    | /api/v1/booking/{bookingID}/{customerID} | Edit information of a booking | [JSON](#editabooking) |
-| DELETE | /api/v1/booking/{bookingID} | Delete a booking | | |
+| Method | Url                                                                                        | Decription | Sample Valid Request Body | 
+| ------ |--------------------------------------------------------------------------------------------| ---------- | --------------------------- |
+| GET    | /api/v1/booking                                                                            | Get the information of all existing bookings | |
+| GET    | /api/v1/booking/get-booking?eventID={eventID}&seatID={seatID}                              | Get information of a booking | |
+| GET    | /api/v1/booking/get-price-of-booking?eventID={eventID}&seatID={seatID}                     | Get the cost of a booking by bookingID | |
+| GET    | /api/v1/booking/get-by-customer-id?customerID={customerID}                                 | Get all booking of a customer by customerID | |
+| POST   | /api/v1/booking /create-booking?customerID={customerID}                                    | Book a seat from an event of a customer by customerID | [JSON](#bookaseat) |
+| DELETE | /api/v1//booking/delete-booking?customerID={customerID}&eventID={eventID}&seatID={seatID}  | Delete a booking | | |
 
 ### Event
 
@@ -138,13 +137,7 @@ The app supports the following requests
     "seatID": "A03"
 }
 ```
-#### <a id="editabooking">Customer with ID 6 edit booking with ID 9. PUT -> /api/v1/booking/*9*/*6* </a>
-```json
-{
-    "eventID": 2,
-    "seatID": "A03"
-}
-```
+
 #### <a id="editanevent">Edit an event with ID 1. PUT -> /api/v1/event/*1* </a>
 ```json
 {
