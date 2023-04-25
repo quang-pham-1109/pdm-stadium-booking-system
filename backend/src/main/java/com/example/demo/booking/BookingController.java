@@ -22,58 +22,47 @@ public class BookingController {
                 HttpStatus.OK);
     }
 
-    @GetMapping(path = "/{bookingID}")
+    @GetMapping(path = "/get-booking")
     public ResponseEntity<Booking> getBookingByID(
-            @PathVariable("bookingID")
-            Integer bookingID) {
+            @RequestParam Integer eventID,
+            @RequestParam String seatID) {
         return new ResponseEntity<>(
-                bookingService.getBookingByID(bookingID),
+                bookingService.getBookingByID(eventID, seatID),
                 HttpStatus.OK);
     }
 
-    @GetMapping(path = "/check-cost/{booking-id}")
+    @GetMapping(path = "/get-price-of-booking")
     public ResponseEntity<Integer> checkPrice(
-            @PathVariable("booking-id")
-            Integer bookingID) {
+            @RequestParam Integer eventID,
+            @RequestParam String seatID) {
         return new ResponseEntity<>(
-                bookingService.checkCost(bookingID),
+                bookingService.checkCost(eventID, seatID),
                 HttpStatus.OK);
     }
 
-    @GetMapping(path = "/customer/{customerID}")
+    @GetMapping(path = "/get-by-customer-id")
     public ResponseEntity<List<Booking>> getBookingsByCustomerID(
-            @PathVariable("customerID")
-            Integer customerID) {
+            @RequestParam Integer customerID) {
         return new ResponseEntity<>(
                 bookingService.getBookingsByCustomerID(customerID),
                 HttpStatus.OK);
     }
 
-    @PostMapping(path = "/{customerID}")
+    @PostMapping(path = "/create-booking")
     public ResponseEntity<Booking> createBooking(
-            @PathVariable("customerID") Integer customerID,
+            @RequestParam Integer customerID,
             @RequestBody Booking booking) {
         return new ResponseEntity<>(
                 bookingService.createBooking(booking, customerID),
                 HttpStatus.CREATED);
     }
 
-    @DeleteMapping(path = "/{bookingID}/{customerID}")
+    @DeleteMapping(path = "/delete-booking")
     public ResponseEntity<Booking> deleteBooking(
-            @PathVariable("bookingID")
-            Integer bookingID,
-            @PathVariable("customerID")
-            Integer customerID) {
-        bookingService.deleteBooking(bookingID, customerID);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @PutMapping(path = "/{bookingID}")
-    public ResponseEntity<Booking> updateBooking(
-            @PathVariable("bookingID")
-            Integer bookingID,
-            @RequestBody Booking booking) {
-        bookingService.updateBooking(bookingID, booking);
+            @RequestParam Integer customerID,
+            @RequestParam Integer eventID,
+            @RequestParam String seatID) {
+        bookingService.deleteBooking(eventID, seatID, customerID);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

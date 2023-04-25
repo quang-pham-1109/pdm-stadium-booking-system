@@ -53,12 +53,11 @@ CREATE TABLE IF NOT EXISTS seat_zone (
 
 
 CREATE TABLE IF NOT EXISTS booking (
-        booking_id int NOT NULL,
         customer_id int NOT NULL,
         event_id int,
         seat_id varchar(10),
 		booking_date date,
-        primary key (booking_id)
+        PRIMARY KEY (event_id, seat_id)
     );
 
 
@@ -92,13 +91,6 @@ ALTER TABLE seat
 
 CREATE SEQUENCE IF NOT EXISTS customer_seq
     START WITH 6
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-CREATE SEQUENCE IF NOT EXISTS booking_seq
-    START WITH 9
     INCREMENT BY 1
     NO MINVALUE
     NO MAXVALUE

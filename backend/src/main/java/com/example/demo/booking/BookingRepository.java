@@ -11,17 +11,17 @@ import java.util.Optional;
 
 public interface BookingRepository extends JpaRepository<Booking, Integer> {
 
-    @Query("SELECT sz.cost " +
-            "FROM SeatZone sz, Seat s, Booking b " +
-            "WHERE b.bookingID = ?1 " +
-            "AND b.seatID = s.seatID " +
-            "AND s.zone = sz.zone")
-    Integer findCostOfBooking(Integer bookingID);
-
     @Query("SELECT b " +
             "FROM Booking b " +
-            "WHERE b.bookingID = ?1")
-    Optional<Booking> getBookingByBookingID(Integer bookingID);
+            "WHERE b.eventID = ?1 AND b.seatID = ?2")
+    Optional<Booking> getBookingByBookingID(Integer eventID, String seatID);
+
+    @Query("SELECT sz.cost " +
+            "FROM SeatZone sz, Seat s, Booking b " +
+            "WHERE b.eventID = ?1 AND b.seatID = ?2 " +
+            "AND b.seatID = s.seatID " +
+            "AND s.zone = sz.zone")
+    Integer findCostOfBooking(Integer eventID, String seatID);
 
     @Query("SELECT b " +
             "FROM Booking b " +
@@ -31,7 +31,7 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
     @Modifying
     @Transactional
     @Query("DELETE FROM Booking b " +
-            "WHERE b.bookingID = ?1 " +
-            "AND b.customerID = ?2")
-    void deleteBooking(Integer bookingID, Integer customerID);
+            "WHERE b.eventID = ?1 AND b.seatID = ?2 " +
+            "AND b.customerID = ?3")
+    void deleteBooking(Integer eventID, String seatID, Integer customerID);
 }
