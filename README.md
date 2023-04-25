@@ -146,5 +146,80 @@ The app supports the following requests
 ```
 #### <a id="editseatzoneprice">Change Seat Zone A price to 100. PUT -> /api/v1/seat-zone/*A*/*100* </a>
 
+## Sample User Interaction with the App
 
+### Register
 
+*POST* request to `/api/auth/signup` with the following body
+
+```json
+{
+    "firstName": "Quang",
+    "lastName": "Pham",
+    "email": "phvuquang@gmail.com",
+    "dateOfBirth": "2003-11-09",
+    "phoneNumber":"(+84) 12345678",
+    "address": "International University",
+    "password": "1234"
+}
+```
+### Check all event
+*GET* request to `/api/v1/event`
+
+Sample Response:
+```json
+[
+    {
+        "eventID": 1,
+        "eventDate": "2023-04-16",
+        "eventTime": "17:00:00",
+        "eventTitle": "NCT DREAM TOUR THE DREAM SHOW2: IN A DREAM",
+        "availableSeats": 8,
+        "totalSeats": 10
+    },
+    {
+        "eventID": 2,
+        "eventDate": "2023-04-30",
+        "eventTime": "18:00:00",
+        "eventTitle": "BILLIE EILISH 2023 WORLD TOUR",
+        "availableSeats": 7,
+        "totalSeats": 10,
+      ...
+    }
+]
+```
+
+### Check all available seat of event with ID 1
+*GET* request to `/api/v1/seat/available/1`
+
+Sample Response:
+```json
+[
+    "A02",
+    "A03",
+    "A04",
+    "A05",
+    "A07",
+    "A08",
+    "A09",
+    "A10",
+    ...
+]
+```
+### Book seat A03 of event with ID 1
+*POST* request to `api/v1/booking/create-booking?customerID=1`
+```json
+{
+    "eventID": 1,
+    "seatID": "A03"
+}
+```
+### Check price of booking 
+*GET* request to `/api/v1/booking/get-price-of-booking?eventID=1&seatID=A03`
+
+Sample Response:
+```json
+{
+    "price": 650
+}
+```
