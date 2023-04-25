@@ -4,6 +4,7 @@ import com.example.demo.customer.CustomerRepository;
 import com.example.demo.event.EventRepository;
 import com.example.demo.seat.SeatRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -26,6 +27,10 @@ public class BookingService {
         this.eventRepository = eventRepository;
     }
 
+    public Booking getBookingByID(Integer eventID, String seatID) {
+        return bookingRepository.getBookingByBookingID(eventID, seatID).
+                orElseThrow(() -> new IllegalStateException("Booking does not exist"));
+    }
     public Booking createBooking(Booking booking, Integer customerID) {
         //Check if seat is available
         if (seatRepository.findAllAvailableSeatsByEventID(
@@ -45,14 +50,17 @@ public class BookingService {
                 orElseThrow(() -> new IllegalStateException("Event does not exist"));
 
         //Check if customer exists
-        booking.setCustomer(customerRepository.findById(customerID).
-                orElseThrow(() -> new IllegalStateException("Customer does not exist")));
+        customerRepository.findById(customerID).
+                orElseThrow(() -> new IllegalStateException("Customer does not exist"));
 
         //Decrease seat amounts of event
         eventRepository.decreaseAvailableSeatsByEventID(booking.getEventID());
 
         var newBooking = Booking.builder()
                 .bookingDate(new Date())
+                .eventID(booking.getEventID())
+                .seatID(booking.getSeatID())
+                .customerID(customerID)
                 .event(eventRepository.findEventByEventID(booking.getEventID()).get())
                 .seat(seatRepository.findSeatBySeatID(booking.getSeatID()).get())
                 .customer(customerRepository.findById(customerID).get())
@@ -60,53 +68,23 @@ public class BookingService {
 
         return bookingRepository.save(newBooking);
     }
-    public Integer checkCost(Integer bookingID) {
-        bookingRepository.getBookingByBookingID(bookingID).
-                orElseThrow(() -> new IllegalStateException("Booking does not exist"));
-        return bookingRepository.findCostOfBooking(bookingID);
+
+    public Integer checkCost(Integer eventID, String seatID) {
+        getBookingByID(eventID, seatID);
+        return bookingRepository.findCostOfBooking(eventID, seatID);
     }
 
     public List<Booking> getAllBookings() {
         return bookingRepository.findAll();
     }
 
-    public Booking getBookingByID(Integer bookingID) {
-        return bookingRepository.findById(bookingID).
-                orElseThrow(() -> new IllegalStateException("Booking does not exist"));
-    }
-
-    public void deleteBooking(Integer bookingID, Integer customerID) {
+    public void deleteBooking(Integer eventID, String seatID, Integer customerID) {
         if (bookingRepository.getBookingsByCustomerID(customerID).size() == 0) {
             throw new IllegalStateException("Customer has no bookings");
         }
-        bookingRepository.deleteBooking(bookingID, customerID);
+        bookingRepository.deleteBooking(eventID, seatID, customerID);
     }
 
-    public void updateBooking(Integer bookingID, Booking booking) {
-        Booking editedBooking = bookingRepository.findById(bookingID).
-                orElseThrow(() -> new IllegalStateException(
-                        "booking with id " + bookingID + "does not exist"));
-        //Check and edit booking date
-        if (booking.getBookingDate() != null &&
-                !Objects.equals(editedBooking.getBookingDate(), booking.getBookingDate())) {
-            editedBooking.setBookingDate(booking.getBookingDate());
-        }
-        //Check and edit booking seat
-        if (booking.getSeatID() != null &&
-                !Objects.equals(editedBooking.getSeatID(), booking.getSeatID())) {
-            editedBooking.setSeatID(booking.getSeatID());
-        }
-        //Check and edit booking event
-        if (booking.getEventID() != null &&
-                !Objects.equals(editedBooking.getEventID(), booking.getEventID())) {
-            editedBooking.setEventID(booking.getEventID());
-        }
-        //Check and edit booking customer
-        if (booking.getCustomerID() != null &&
-                !Objects.equals(editedBooking.getCustomerID(), booking.getCustomerID())) {
-            throw new IllegalStateException("Customer cannot be changed");
-        }
-    }
 
     public List<Booking> getBookingsByCustomerID(Integer customerID) {
         if (bookingRepository.getBookingsByCustomerID(customerID).size() == 0) {

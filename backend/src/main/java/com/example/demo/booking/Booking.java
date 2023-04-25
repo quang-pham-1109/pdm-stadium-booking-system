@@ -13,24 +13,20 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@IdClass(BookingID.class)
 @Entity
 @Table(name = "Booking")
 public class Booking {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "my_seq")
-    @SequenceGenerator(name = "my_seq", sequenceName = "booking_seq", allocationSize = 1)
-    @Column(name = "booking_id")
-    private Integer bookingID;
-
-    @Column(name = "customer_id", insertable=false, updatable=false)
-    private Integer customerID;
-
     @Column(name = "event_id", insertable=false, updatable=false)
     private Integer eventID;
 
+    @Id
     @Column(name = "seat_id", insertable=false, updatable=false)
     private String seatID;
+
+    @Column(name = "customer_id", insertable=false, updatable=false)
+    private Integer customerID;
 
     @Column(name = "booking_date")
     private Date bookingDate;
@@ -49,5 +45,4 @@ public class Booking {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seat_id")
     private Seat seat;
-
 }
