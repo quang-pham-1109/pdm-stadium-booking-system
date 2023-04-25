@@ -62,15 +62,14 @@ The app supports the following requests
 
 ### Booking
 
-| Method | Url | Decription | Sample Valid Request Body | 
-| ------ | --- | ---------- | --------------------------- |
-| GET    | /api/v1/booking | Get the information of all existing bookings | |
-| GET    | /api/v1/booking/{bookingID} | Get information of a booking by bookingID | |
-| GET    | /api/v1/booking/check-cost/{booking-id} | Get the cost of a booking by bookingID | |
-| GET    | /api/v1/booking/customer/{customerID} | Get all booking of a customer by customerID | |
-| POST   | /api/v1/booking/{customerID} | Book a seat from an event of a customer by customerID | [JSON](#bookaseat) |
-| PUT    | /api/v1/booking/{bookingID}/{customerID} | Edit information of a booking | [JSON](#editabooking) |
-| DELETE | /api/v1/booking/{bookingID} | Delete a booking | | |
+| Method | Url                                                                                        | Decription | Sample Valid Request Body | 
+| ------ |--------------------------------------------------------------------------------------------| ---------- | --------------------------- |
+| GET    | /api/v1/booking                                                                            | Get the information of all existing bookings | |
+| GET    | /api/v1/booking/get-booking?eventID={eventID}&seatID={seatID}                              | Get information of a booking | |
+| GET    | /api/v1/booking/get-price-of-booking?eventID={eventID}&seatID={seatID}                     | Get the cost of a booking by bookingID | |
+| GET    | /api/v1/booking/get-by-customer-id?customerID={customerID}                                 | Get all booking of a customer by customerID | |
+| POST   | /api/v1/booking /create-booking?customerID={customerID}                                    | Book a seat from an event of a customer by customerID | [JSON](#bookaseat) |
+| DELETE | /api/v1//booking/delete-booking?customerID={customerID}&eventID={eventID}&seatID={seatID}  | Delete a booking | | |
 
 ### Event
 
@@ -138,13 +137,7 @@ The app supports the following requests
     "seatID": "A03"
 }
 ```
-#### <a id="editabooking">Customer with ID 6 edit booking with ID 9. PUT -> /api/v1/booking/*9*/*6* </a>
-```json
-{
-    "eventID": 2,
-    "seatID": "A03"
-}
-```
+
 #### <a id="editanevent">Edit an event with ID 1. PUT -> /api/v1/event/*1* </a>
 ```json
 {
@@ -153,5 +146,80 @@ The app supports the following requests
 ```
 #### <a id="editseatzoneprice">Change Seat Zone A price to 100. PUT -> /api/v1/seat-zone/*A*/*100* </a>
 
+## Sample User Interaction with the App
 
+### Register
 
+*POST* request to `/api/auth/signup` with the following body
+
+```json
+{
+    "firstName": "Quang",
+    "lastName": "Pham",
+    "email": "phvuquang@gmail.com",
+    "dateOfBirth": "2003-11-09",
+    "phoneNumber":"(+84) 12345678",
+    "address": "International University",
+    "password": "1234"
+}
+```
+### Check all event
+*GET* request to `/api/v1/event`
+
+Sample Response:
+```json
+[
+    {
+        "eventID": 1,
+        "eventDate": "2023-04-16",
+        "eventTime": "17:00:00",
+        "eventTitle": "NCT DREAM TOUR THE DREAM SHOW2: IN A DREAM",
+        "availableSeats": 8,
+        "totalSeats": 10
+    },
+    {
+        "eventID": 2,
+        "eventDate": "2023-04-30",
+        "eventTime": "18:00:00",
+        "eventTitle": "BILLIE EILISH 2023 WORLD TOUR",
+        "availableSeats": 7,
+        "totalSeats": 10,
+      ...
+    }
+]
+```
+
+### Check all available seat of event with ID 1
+*GET* request to `/api/v1/seat/available/1`
+
+Sample Response:
+```json
+[
+    "A02",
+    "A03",
+    "A04",
+    "A05",
+    "A07",
+    "A08",
+    "A09",
+    "A10",
+    ...
+]
+```
+### Book seat A03 of event with ID 1
+*POST* request to `api/v1/booking/create-booking?customerID=1`
+```json
+{
+    "eventID": 1,
+    "seatID": "A03"
+}
+```
+### Check price of booking 
+*GET* request to `/api/v1/booking/get-price-of-booking?eventID=1&seatID=A03`
+
+Sample Response:
+```json
+{
+    "price": 650
+}
+```
