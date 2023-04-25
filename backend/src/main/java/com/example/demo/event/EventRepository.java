@@ -12,16 +12,21 @@ import java.util.Optional;
 @Repository
 public interface EventRepository extends JpaRepository<Event, Integer> {
 
-    @Query("SELECT e FROM Event e WHERE e.eventID = ?1")
+    @Query("SELECT e " +
+            "FROM Event e " +
+            "WHERE e.eventID = ?1")
     Optional<Event> findEventByEventID(Integer eventID);
 
     @Transactional
     @Modifying
-    @Query("UPDATE Event e SET e.availableSeats = e.availableSeats - 1 WHERE e.eventID = ?1")
+    @Query("UPDATE Event e " +
+            "SET e.availableSeats = e.availableSeats - 1 " +
+            "WHERE e.eventID = ?1")
     void decreaseAvailableSeatsByEventID(Integer eventID);
 
     @Transactional
     @Modifying
-    @Query("DELETE FROM Event e WHERE e.eventID = ?1")
+    @Query("DELETE FROM Event e " +
+            "WHERE e.eventID = ?1")
     void deleteById(Integer eventID);
 }
