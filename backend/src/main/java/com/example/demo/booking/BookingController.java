@@ -1,5 +1,6 @@
 package com.example.demo.booking;
 
+import com.example.demo.paymentBill.PaymentBillService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +37,7 @@ public class BookingController {
             @RequestParam Integer eventID,
             @RequestParam String seatID) {
         return new ResponseEntity<>(
-                bookingService.checkCost(eventID, seatID),
+                bookingService.getCostOfABooking(eventID, seatID),
                 HttpStatus.OK);
     }
 

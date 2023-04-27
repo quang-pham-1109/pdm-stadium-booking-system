@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "api/v1/paymentBill")
+@RequestMapping(path = "api/v1/payment-bill")
 public class PaymentBillController {
     private final PaymentBillService paymentBillService;
 
@@ -19,6 +19,7 @@ public class PaymentBillController {
 
     @GetMapping
     public ResponseEntity<List<PaymentBill>> getPaymentBills() {
+        paymentBillService.createANewBill();
         return new  ResponseEntity<>(paymentBillService.getAllPaymentBill(), HttpStatus.OK);
     }
 

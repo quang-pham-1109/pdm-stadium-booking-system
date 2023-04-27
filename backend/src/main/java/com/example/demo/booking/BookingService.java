@@ -4,11 +4,9 @@ import com.example.demo.customer.CustomerRepository;
 import com.example.demo.event.EventRepository;
 import com.example.demo.seat.SeatRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class BookingService {
@@ -66,9 +64,9 @@ public class BookingService {
         return bookingRepository.save(newBooking);
     }
 
-    public Integer checkCost(Integer eventID, String seatID) {
+    public Integer getCostOfABooking(Integer eventID, String seatID) {
         getBookingByID(eventID, seatID);
-        return bookingRepository.findCostOfBooking(eventID, seatID);
+        return bookingRepository.getCostOfBooking(eventID, seatID);
     }
 
     public List<Booking> getAllBookings() {
@@ -81,7 +79,6 @@ public class BookingService {
         }
         bookingRepository.deleteBooking(eventID, seatID, customerID);
     }
-
 
     public List<Booking> getBookingsByCustomerID(Integer customerID) {
         if (bookingRepository.getBookingsByCustomerID(customerID).size() == 0) {
