@@ -1,70 +1,74 @@
-drop sequence if exists customer_seq cascade;
+DROP SEQUENCE IF EXISTS customer_seq CASCADE;
 
-drop table if exists seat_zone cascade;
+DROP SEQUENCE IF EXISTS event_seq CASCADE;
 
-drop table if exists booking cascade;
+DROP TABLE IF EXISTS seat_zone CASCADE;
 
-drop table if exists customer cascade;
+DROP TABLE IF EXISTS booking CASCADE;
 
-drop table if exists event cascade;
+DROP TABLE IF EXISTS customer CASCADE;
 
-drop table if exists seat cascade;
+DROP TABLE IF EXISTS event CASCADE;
+
+DROP TABLE IF EXISTS seat CASCADE;
+
+DROP TABLE IF EXISTS payment_bill CASCADE;
 
 SELECT 'CREATE DATABASE stadium-booking'
 WHERE NOT EXISTS (SELECT FROM pg_database
                          WHERE datname = 'stadium-booking');
 
 
-CREATE TABLE IF NOT EXISTS customer (
-        customer_id int NOT NULL,
-        address varchar(50),
-        date_of_birth date,
-        email varchar(50),
-        first_name varchar(50) NOT NULL,
-        last_name varchar(50) NOT NULL,
-        phone_number varchar(50),
-        password varchar,
-        role varchar(50),
-        booking_id int,
-        primary key (customer_id)
-    );
+CREATE TABLE customer (
+    customer_id int NOT NULL,
+    address varchar(50),
+    date_of_birth date,
+    email varchar(50),
+    first_name varchar(50) NOT NULL,
+    last_name varchar(50) NOT NULL,
+    phone_number varchar(50),
+    password varchar,
+    role varchar(50),
+    primary key (customer_id)
+);
 
-CREATE TABLE IF NOT EXISTS event (
-        event_id int NOT NULL,
-        event_date date,
-        event_time time,
-		event_title varchar(100),
-		available_seats int,
-		total_seats int,
-        primary key (event_id)
-    );
+CREATE TABLE event (
+    event_id int NOT NULL,
+    event_date date,
+    event_time time,
+    event_title varchar(100),
+    available_seats int,
+    total_seats int,
+    primary key (event_id)
+);
 
-CREATE TABLE IF NOT EXISTS seat (
-        seat_id varchar(10) NOT NULL,
-        zone varchar(2),
-        primary key (seat_id)
-    );
+CREATE TABLE seat (
+    seat_id varchar(10) NOT NULL,
+    zone varchar(2),
+    primary key (seat_id)
+);
 
-CREATE TABLE IF NOT EXISTS seat_zone (
+CREATE TABLE seat_zone (
     zone varchar(2) NOT NULL,
     cost int,
     PRIMARY KEY (zone)
 );
 
-CREATE TABLE IF NOT EXISTS booking (
-        customer_id int NOT NULL,
-        event_id int,
-        seat_id varchar(10),
-		booking_date date,
-        PRIMARY KEY (event_id, seat_id)
-    );
+CREATE TABLE booking (
+    customer_id int NOT NULL,
+    event_id int,
+    seat_id varchar(10),
+    booking_date date,
+    PRIMARY KEY (event_id, seat_id)
+);
 
 CREATE TABLE payment_bill(
-    bill_id int NOT NULL,
+    payment_id int NOT NULL,
     customer_id int,
-    bill_date date,
+    event_id int,
+    payment_date date,
     total_cost int,
-    PRIMARY KEY (bill_id)
+    PRIMARY KEY (payment_id)
 );
 
 ALTER TABLE booking DROP CONSTRAINT IF EXISTS FK_CustomerBooking;
@@ -101,6 +105,13 @@ ALTER TABLE payment_bill
     ADD CONSTRAINT FK_CustomerBill
     FOREIGN KEY (customer_id)
     REFERENCES customer(customer_id) ON DELETE CASCADE;
+
+ALTER TABLE payment_bill DROP CONSTRAINT IF EXISTS FK_EventBill;
+
+ALTER TABLE payment_bill
+    ADD CONSTRAINT FK_EventBill
+    FOREIGN KEY (event_id)
+    REFERENCES event(event_id) ON DELETE CASCADE;
 
 CREATE SEQUENCE IF NOT EXISTS customer_seq
     START WITH 6
