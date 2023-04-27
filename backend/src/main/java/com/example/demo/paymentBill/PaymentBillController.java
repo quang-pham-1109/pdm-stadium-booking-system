@@ -3,6 +3,7 @@ package com.example.demo.paymentBill;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,6 +22,13 @@ public class PaymentBillController {
     public ResponseEntity<List<PaymentBill>> getPaymentBills() {
         paymentBillService.createANewBill();
         return new  ResponseEntity<>(paymentBillService.getAllPaymentBill(), HttpStatus.OK);
+    }
+
+    @GetMapping(path = "{customerID}")
+    public ResponseEntity<List<PaymentBill>> getPaymentBillsByCustomerID(
+            @PathVariable Integer customerID) {
+        paymentBillService.createANewBill();
+        return new  ResponseEntity<>(paymentBillService.getByCustomerID(customerID), HttpStatus.OK);
     }
 
 }

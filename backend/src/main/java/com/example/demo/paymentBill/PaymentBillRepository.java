@@ -19,4 +19,8 @@ public interface PaymentBillRepository extends JpaRepository<PaymentBill, Intege
             "WHERE pb.paymentID = ?1")
     void updateTotalCostByPaymentBillID(Integer paymentBillID, Integer totalCost);
 
+    @Query("SELECT pb " +
+            "FROM PaymentBill pb " +
+            "WHERE pb.customerID = ?1")
+    List<PaymentBill> getByCustomerID(Integer customerID);
 }

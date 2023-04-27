@@ -3,31 +3,34 @@ package com.example.demo.booking;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-public interface BookingRepository extends JpaRepository<Booking, Integer> {
+@Repository
+public interface BookingRepository extends JpaRepository<Booking, BookingID> {
 
     @Query("SELECT b " +
             "FROM Booking b " +
             "WHERE b.eventID = ?1 AND b.seatID = ?2")
     Optional<Booking> getBookingByBookingID(Integer eventID, String seatID);
 
-    @Query("SELECT  b " +
-            "FROM Booking  b " +
-            "WHERE b.eventID = ?1 AND b.customerID = ?2 AND b.bookingDate = ?3")
-    Optional<Booking> getBookingByEventIDAndCustomerIDAndBookingDate(Integer eventID,
-                                                                     Integer customerID,
-                                                                     Date BookingDate);
+
     @Query("SELECT b FROM Booking b WHERE b NOT IN " +
             "(SELECT b from Booking b, PaymentBill pb " +
             "WHERE b.eventID = pb.eventID " +
             "AND b.customerID = pb.customerID " +
             "AND b.bookingDate = pb.billDate)")
     List<Booking> getBookingThatDoesNotHaveBill();
+
+    @Query("SELECT b " +
+            "FROM Booking b " +
+            "WHERE b.eventID = ?1 AND b.customerID = ?2 " +
+            "AND b.bookingDate = ?3")
+    List<Booking> getBookingByEventIDAndCustomerIDAndBookingDate(Integer eventID, Integer customerID, Date bookingDate);
 
     @Query("SELECT sz.cost " +
             "FROM SeatZone sz, Seat s, Booking b " +
