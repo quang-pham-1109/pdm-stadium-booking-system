@@ -44,8 +44,6 @@ public class Customer implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
-    private List<Booking> booking;
 
     @JsonIgnore
     @Override
@@ -77,11 +75,13 @@ public class Customer implements UserDetails {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isEnabled() {
         return true;

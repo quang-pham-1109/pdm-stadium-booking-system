@@ -38,7 +38,5 @@ public class Event {
     @Column(name = "total_seats")
     private Integer totalSeats;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "event")
-    private List<Booking> booking;
 
 }
