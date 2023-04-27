@@ -61,9 +61,6 @@ public class BookingService {
                 .eventID(booking.getEventID())
                 .seatID(booking.getSeatID())
                 .customerID(customerID)
-                .event(eventRepository.findEventByEventID(booking.getEventID()).get())
-                .seat(seatRepository.findSeatBySeatID(booking.getSeatID()).get())
-                .customer(customerRepository.findById(customerID).get())
                 .build();
 
         return bookingRepository.save(newBooking);

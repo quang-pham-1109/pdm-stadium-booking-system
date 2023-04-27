@@ -24,12 +24,4 @@ public class Seat {
     @Column(name = "zone", insertable=false, updatable=false)
     private String zone;
 
-    @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "seat")
-    private List<Booking> booking;
-
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "zone")
-    private SeatZone seatZone;
 }

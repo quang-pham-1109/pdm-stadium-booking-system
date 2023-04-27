@@ -22,8 +22,6 @@ public class SeatZone {
     @Column(name = "cost")
     private Integer cost;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "seatZone")
-    private List<Seat> seat;
 }
 
 
