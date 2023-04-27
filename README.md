@@ -183,8 +183,7 @@ Sample Response:
         "eventTime": "18:00:00",
         "eventTitle": "BILLIE EILISH 2023 WORLD TOUR",
         "availableSeats": 7,
-        "totalSeats": 10,
-      ...
+        "totalSeats": 10
     }
 ]
 ```
@@ -202,8 +201,7 @@ Sample Response:
     "A07",
     "A08",
     "A09",
-    "A10",
-    ...
+    "A10"
 ]
 ```
 ### Book seat A03 of event with ID 1
