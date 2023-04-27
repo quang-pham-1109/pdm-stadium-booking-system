@@ -51,7 +51,6 @@ CREATE TABLE IF NOT EXISTS seat_zone (
     PRIMARY KEY (zone)
 );
 
-
 CREATE TABLE IF NOT EXISTS booking (
         customer_id int NOT NULL,
         event_id int,
@@ -60,6 +59,13 @@ CREATE TABLE IF NOT EXISTS booking (
         PRIMARY KEY (event_id, seat_id)
     );
 
+CREATE TABLE payment_bill(
+    bill_id int NOT NULL,
+    customer_id int,
+    bill_date date,
+    total_cost int,
+    PRIMARY KEY (bill_id)
+);
 
 ALTER TABLE booking DROP CONSTRAINT IF EXISTS FK_CustomerBooking;
 
@@ -89,6 +95,13 @@ ALTER TABLE seat
     FOREIGN KEY (zone)
     REFERENCES seat_zone(zone);
 
+ALTER TABLE payment_bill DROP CONSTRAINT IF EXISTS FK_CustomerBill;
+
+ALTER TABLE payment_bill
+    ADD CONSTRAINT FK_CustomerBill
+    FOREIGN KEY (customer_id)
+    REFERENCES customer(customer_id) ON DELETE CASCADE;
+
 CREATE SEQUENCE IF NOT EXISTS customer_seq
     START WITH 6
     INCREMENT BY 1
@@ -103,5 +116,11 @@ CREATE SEQUENCE IF NOT EXISTS event_seq
     NO MAXVALUE
     CACHE 1;
 
+CREATE SEQUENCE IF NOT EXISTS bill_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
 
 

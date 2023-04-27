@@ -16,8 +16,7 @@ VALUES
     (5,'Mataderos 2312', '1990-03-23', 'antonio90@gmail.com','Antonio', 'Moreno', 0845572822, 'USER')
 ON CONFLICT DO NOTHING ;
 
-INSERT INTO event(
-                  event_id,
+INSERT INTO event(event_id,
                   event_date,
                   event_time,
                   event_title,
