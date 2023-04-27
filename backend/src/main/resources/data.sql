@@ -1,5 +1,3 @@
-
-
 INSERT INTO customer(customer_id,
                      address,
                      date_of_birth,
@@ -16,8 +14,7 @@ VALUES
     (5,'Mataderos 2312', '1990-03-23', 'antonio90@gmail.com','Antonio', 'Moreno', 0845572822, 'USER')
 ON CONFLICT DO NOTHING ;
 
-INSERT INTO event(
-                  event_id,
+INSERT INTO event(event_id,
                   event_date,
                   event_time,
                   event_title,
@@ -68,18 +65,41 @@ VALUES
     ('C10', 'C')
 ON CONFLICT DO NOTHING;
 
-INSERT INTO booking(customer_id, event_id, seat_id, booking_date)
+INSERT INTO booking(
+                    customer_id,
+                    event_id,
+                    seat_id,
+                    booking_date)
 VALUES
     (1, 1, 'A01', '2023-03-30'),
-    (2, 1, 'A06', '2023-03-31'),
-    (3, 2, 'A01', '2023-03-31'),
-    (2, 2, 'A02', '2023-04-02'),
-    (1, 2, 'A07', '2023-04-01'),
-    (1, 3, 'A02', '2023-04-05'),
-    (1, 3, 'A07', '2023-04-05'),
-    (2, 3, 'A08', '2023-04-06')
+    (1, 1, 'A02', '2023-03-30'),
+    (1, 1, 'A03', '2023-03-30'),
+
+    (2, 2, 'B06', '2023-03-31'),
+    (2, 2, 'A01', '2023-03-31'),
+
+    (2, 3, 'A02', '2023-04-02'),
+
+    (3, 2, 'A07', '2023-04-01'),
+
+    (4, 3, 'A02', '2023-04-05'),
+    (4, 3, 'A07', '2023-04-05'),
+
+    (5, 3, 'A08', '2023-04-06')
 ON CONFLICT DO NOTHING;
 
-
-
+INSERT INTO payment_bill(
+                         payment_id,
+                         event_id,
+                         customer_id,
+                         payment_date,
+                         total_cost)
+VALUES
+    (1, 1, 1, '2023-03-30', 1950),
+    (2, 2, 2, '2023-03-31', 1150),
+    (3, 3, 2, '2023-04-02', 650),
+    (4, 2, 3, '2023-04-01', 650),
+    (5, 3, 4, '2023-04-05', 1300),
+    (6, 3, 5, '2023-04-06', 650)
+ON CONFLICT DO NOTHING;
 
