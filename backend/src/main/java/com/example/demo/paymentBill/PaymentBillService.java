@@ -76,4 +76,20 @@ public class PaymentBillService {
     public List<PaymentBill> getByCustomerID(Integer customerID) {
         return paymentBillRepository.getByCustomerID(customerID);
     }
+
+    public PaymentBill getNewestBillByCustomerID(Integer customerID) {
+        List<PaymentBill> paymentBills = paymentBillRepository.getByCustomerID(customerID);
+
+        if (paymentBills.size() == 0) {
+            return null;
+        }
+
+        int highestIndex = 0;
+        for (PaymentBill paymentBill : paymentBills){
+            if (paymentBill.getPaymentID() > highestIndex) {
+                highestIndex = paymentBill.getPaymentID();
+            }
+        }
+        return paymentBillRepository.getByPaymentID(highestIndex);
+    }
 }

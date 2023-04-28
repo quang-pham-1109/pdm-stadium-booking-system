@@ -97,6 +97,12 @@ The app supports the following requests
 | GET    | /api/v1/seat-zone | Get all Seat Zone information and pricing | |
 | PUT    | /api/v1/seat-zone/{zone}/{price} | Change seat zone price by {price} |[JSON](#editseatzoneprice) | 
 
+### Payment Bill
+| Method | Url                  | Decription                       | Sample Valid Request Body | 
+| ------ |----------------------|----------------------------------| --------------------------- |
+| GET    | /api/v1/payment-bill | Get Information of all seats     | |
+| GET    | /api/v1/payment-bill/get-by-customer-id?customerID={customerID} | Get all payment bill of a customer by customerID | | 
+
 ## Sample Valid JSONs Request Body
 
 #### <a id="signup">Sign Up. POST -> /api/auth/signup</a>
