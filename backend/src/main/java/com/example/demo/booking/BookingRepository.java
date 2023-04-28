@@ -1,5 +1,6 @@
 package com.example.demo.booking;
 
+import jakarta.persistence.EntityManager;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -51,10 +52,12 @@ public interface BookingRepository extends JpaRepository<Booking, BookingID> {
             "AND b.customerID = ?3")
     void deleteBooking(Integer eventID, String seatID, Integer customerID);
 
-//    @Modifying
-//    @Transactional
-//    @Query("INSERT INTO Booking b " +
-//            "(b.eventID, b.seatID, b.customerID, b.bookingDate) " +
-//            "VALUES (?1, ?2, ?3, ?4)")
-//    void saveBooking(Integer eventID, String seatID, Integer customerID, Date bookingDate);
+
+    @Modifying
+    @Transactional
+    @Query(
+            value = "INSERT INTO Booking (event_id, seat_id, customer_id, booking_date) " +
+                    "VALUES (?1, ?2, ?3, ?4)",
+            nativeQuery = true)
+    void saveBooking(Integer eventID, String seatID, Integer customerID, Date bookingDate);
 }

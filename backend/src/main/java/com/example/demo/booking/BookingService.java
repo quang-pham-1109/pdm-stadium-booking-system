@@ -4,9 +4,11 @@ import com.example.demo.customer.CustomerRepository;
 import com.example.demo.event.EventRepository;
 import com.example.demo.seat.SeatRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+
 
 @Service
 public class BookingService {
@@ -29,7 +31,7 @@ public class BookingService {
         return bookingRepository.getBookingByBookingID(eventID, seatID).
                 orElseThrow(() -> new IllegalStateException("Booking does not exist"));
     }
-    public Booking createBooking(Booking booking, Integer customerID) {
+    public void createBooking(Booking booking, Integer customerID) {
         //Check if seat is available
         if (seatRepository.findAllAvailableSeatsByEventID(
                 booking.getEventID()).size() == 0) {
@@ -54,14 +56,12 @@ public class BookingService {
         //Decrease seat amounts of event
         eventRepository.decreaseAvailableSeatsByEventID(booking.getEventID());
 
-        var newBooking = Booking.builder()
-                .bookingDate(new Date())
-                .eventID(booking.getEventID())
-                .seatID(booking.getSeatID())
-                .customerID(customerID)
-                .build();
+        System.out.println(booking);
 
-        return bookingRepository.save(newBooking);
+        bookingRepository.saveBooking(booking.getEventID(),
+                booking.getSeatID(),
+                customerID,
+                new Date());
     }
 
     public Integer getCostOfABooking(Integer eventID, String seatID) {
