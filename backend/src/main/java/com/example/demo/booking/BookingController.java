@@ -53,9 +53,8 @@ public class BookingController {
     public ResponseEntity<Booking> createBooking(
             @RequestParam Integer customerID,
             @RequestBody Booking booking) {
-        return new ResponseEntity<>(
-                bookingService.createBooking(booking, customerID),
-                HttpStatus.CREATED);
+        bookingService.createBooking(booking, customerID);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/delete-booking")
