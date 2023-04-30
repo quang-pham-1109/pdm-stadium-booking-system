@@ -243,7 +243,7 @@ Sample Response:
 }
 ```
 ### Checkout with Payment Bill
-*GET* request to `api/v1/payment-bill/get-by-customer-id/6
+*GET* request to `api/v1/payment-bill/get-by-customer-id/6`
 ```json
 {
     "paymentID": 7,
