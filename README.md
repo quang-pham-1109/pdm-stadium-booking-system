@@ -1,4 +1,4 @@
-A project for Principle of Database Management Course in International University. This is a simple application that could handle booking for stadium. Currently just a barebone RESTful api, we are working on building the front-end
+A project for Principle of Database Management Course in International University. This is a simple application that could handle booking for stadium. Currently just a barebone RESTful api, the front-end is still a Work In Progress.
 
 # Tech Stack
 - **Back-end**: Spring Boot, Spring Data JPA, Spring Security
@@ -13,11 +13,15 @@ A project for Principle of Database Management Course in International Universit
 * **Edit user information**: User can edit their username and other information on their profile.
 * **Create a seat/book a seat**: User can book one or multiple seats of an event.
 * **Check for available/booked seat**: User can check seat status.
-* **Pay for booking**: User can pay for their booking.
+* **Pay for booking**: User can check their bill and pay for their booking.
 * **Delete booking**: User can delete bookings that have not expired.
 
-## ER Diagram 
-![ER Diagram](https://i.imgur.com/qFAWFjU.jpg)
+## Diagrams
+### ER Diagram
+![ER Diagram](https://i.imgur.com/cw6wEGW.png)
+
+### Use Case Diagram
+![Use Case Diagram](https://i.imgur.com/BsOFR8Y.png)
 
 # Setting up the Backend
 **1. Clone the application**
@@ -50,7 +54,7 @@ The app supports the following requests
 | POST   | /api/auth/signup | Sign up | [JSON](#signup) |
 | POST   | /api/auth/signin | Log in | [JSON](#signin) |
 
-**Note:** Upon request, the api will return a `Json Web Token (JWT)` please enter the token as `Bearer Token` in Authorization Header in order to access the application
+**Note:** Upon request, the api will return a `Json Web Token (JWT)` please enter the token as `Bearer Token` in Authorization Header in order to access the application.
 
 ### Customer
 | Method | Url | Decription | Sample Valid Request Body | 
@@ -101,7 +105,7 @@ The app supports the following requests
 | Method | Url                  | Decription                       | Sample Valid Request Body | 
 | ------ |----------------------|----------------------------------| --------------------------- |
 | GET    | /api/v1/payment-bill | Get Information of all seats     | |
-| GET    | /api/v1/payment-bill/get-by-customer-id?customerID={customerID} | Get all payment bill of a customer by customerID | | 
+| GET    | /api/v1/payment-bill/get-by-customer-id/{customer-id} | Get all payment bill of a customer by customerID | | 
 
 ## Sample Valid JSONs Request Body
 
@@ -154,6 +158,8 @@ The app supports the following requests
 
 ## Sample User Interaction with the App
 
+The sample user below will have the following interaction: Register -> Check All Event -> Check available seat of desired event -> Book a seat -> Recieve Payment Bill with Total Cost.
+
 ### Register
 
 *POST* request to `/api/auth/signup` with the following body
@@ -169,6 +175,7 @@ The app supports the following requests
     "password": "1234"
 }
 ```
+*Note*: Newly registered `customerID = 6` and after the request is completed. The API will return a `JWT Token` , use this as `Bearer Token` as your Request Header in order to access the appplication.
 ### Check all event
 *GET* request to `/api/v1/event`
 
@@ -210,14 +217,6 @@ Sample Response:
     "A10"
 ]
 ```
-### Book seat A03 of event with ID 1
-*POST* request to `api/v1/booking/create-booking?customerID=1`
-```json
-{
-    "eventID": 1,
-    "seatID": "A03"
-}
-```
 ### Check price of booking 
 *GET* request to `/api/v1/booking/get-price-of-booking?eventID=1&seatID=A03`
 
@@ -227,3 +226,31 @@ Sample Response:
     "price": 650
 }
 ```
+### Book seat A03 of event with ID 1
+*POST* request to `api/v1/booking/create-booking?customerID=7`
+```json
+{
+    "eventID": 1,
+    "seatID": "A03"
+}
+```
+### Book seat B03 of event with ID 1
+*POST* request to `api/v1/booking/create-booking?customerID=1`
+```json
+{
+    "eventID": 1,
+    "seatID": "B03"
+}
+```
+### Checkout with Payment Bill
+*GET* request to `api/v1/payment-bill/get-by-customer-id/6
+```json
+{
+    "paymentID": 7,
+    "customerID": 6,
+    "eventID": 1,
+    "billDate": "2023-30-4",
+    "totalCost": 1150
+}
+```
+*Note:* The Bill Date will be automaticallly assigned to current date of booking.
