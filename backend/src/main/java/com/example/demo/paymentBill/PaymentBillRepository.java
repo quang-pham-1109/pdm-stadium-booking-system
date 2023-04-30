@@ -12,15 +12,13 @@ import java.util.List;
 @Repository
 public interface PaymentBillRepository extends JpaRepository<PaymentBill, Integer> {
 
-    @Modifying
-    @Transactional
-    @Query("UPDATE PaymentBill pb " +
-            "SET pb.totalCost = ?2 " +
-            "WHERE pb.paymentID = ?1")
-    void updateTotalCostByPaymentBillID(Integer paymentBillID, Integer totalCost);
-
     @Query("SELECT pb " +
             "FROM PaymentBill pb " +
             "WHERE pb.customerID = ?1")
     List<PaymentBill> getByCustomerID(Integer customerID);
+
+    @Query("SELECT pb " +
+            "FROM PaymentBill pb " +
+            "WHERE pb.paymentID = ?1")
+    PaymentBill getByPaymentID(Integer paymentID);
 }

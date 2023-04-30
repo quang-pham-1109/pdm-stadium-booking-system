@@ -24,11 +24,17 @@ public class PaymentBillController {
         return new  ResponseEntity<>(paymentBillService.getAllPaymentBill(), HttpStatus.OK);
     }
 
-    @GetMapping(path = "{customerID}")
+    @GetMapping(path = "/get-by-customer-id/{customerID}")
     public ResponseEntity<List<PaymentBill>> getPaymentBillsByCustomerID(
             @PathVariable Integer customerID) {
         paymentBillService.createANewBill();
         return new  ResponseEntity<>(paymentBillService.getByCustomerID(customerID), HttpStatus.OK);
     }
 
+    @GetMapping(path = "/get-newest-bill/{customerID}")
+    public ResponseEntity<PaymentBill> getNewestBillByCustomerID(
+            @PathVariable Integer customerID) {
+        paymentBillService.createANewBill();
+        return new  ResponseEntity<>(paymentBillService.getNewestBillByCustomerID(customerID), HttpStatus.OK);
+    }
 }
