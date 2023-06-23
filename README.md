@@ -1,14 +1,13 @@
-A project for Principle of Database Management Course in International University. This is a simple application that could handle booking for stadium. Currently just a barebone RESTful api, the front-end is still a Work In Progress.
+A project for the Principle of Database Management Course at International University. This is a simple application that could handle booking for the stadium. Intended to be a Full-Stack Application but due to the time constraint, we could only finish the API on time.
 
-# Tech Stack
+# Prerequisite
 - **Back-end**: Spring Boot, Spring Data JPA, Spring Security
-- **Front-end**: Reactjs
 - **Database Management System**: PostgreSQL
 
 # Application Properties
 ## Basic Features
 * **Sign in**: User can sign in with their username and password if they have an existing account.
-* **Register**: User registers for a new username and password, add basic information like phone number, address.
+* **Register**: User registers for a new username and password, add basic information like phone number, and address.
 * **Basic Authentication**: The user's password is encrypted and the user must give a JWT Token in order to access the application
 * **Edit user information**: User can edit their username and other information on their profile.
 * **Create a seat/book a seat**: User can book one or multiple seats of an event.
@@ -37,21 +36,27 @@ Download PostgreSQL if you haven't. Create the database:
 CREATE DATABASE "stadium-booking";
 ```
 + Open `/backend/src/main/resources/.env`
-+ Change `USER`, `USER` and `PORT` as per your PostgreSQL installation
-+ Database's configuration and Sample data can be seen in `/resources/schema.sql` and `/resources/data.sql` 
++ Change `USER`, `PASSWORD` and `PORT` as per your PostgreSQL installation.
++ Database's configuration and Sample data can be seen in `/resources/schema.sql` and `/resources/data.sql` respectively.
 
 **3. Run the app using Maven**
+Donwload the required dependencies.
+```bash
+mvn clean install
+```
 
-Download maven if you haven't and navigate to src folder to run the project
+Navigate to src folder to run the project.
 ```bash
 mvn spring-boot:run
 ```
 The app will start running at <http://localhost:8080>
 
-## Explore Rest APIs
-The app supports the following requests
+If you have trouble downloading or running the app using Maven, you could use Intellj IDE to run the application. The repository has `.idea` so Intellj could easily read and run the application.
 
-### Authentication
+# Explore Rest APIs
+The app supports the following requests:
+
+## Authentication
 | Method | Url | Decription | Sample Valid Request Body | 
 | ------ | --- | ---------- | --------------------------- |
 | POST   | /api/auth/signup | Sign up | [JSON](#signup) |
@@ -59,7 +64,7 @@ The app supports the following requests
 
 **Note:** Upon request, the api will return a `Json Web Token (JWT)` please enter the token as `Bearer Token` in Authorization Header in order to access the application.
 
-### Customer
+## Customer
 | Method | Url | Decription | Sample Valid Request Body | 
 | ------ | --- | ---------- | --------------------------- |
 | GET    | /api/v1/customer | Get all Customer information | |
@@ -67,7 +72,7 @@ The app supports the following requests
 | PUT    | /api/v1/customer/{customerID} | Edit a customer information by customerID | [JSON](#editacustomer)
 | DELETE | /api/v1/customer/{customerID} | Delete a customer by customerID| | 
 
-### Booking
+## Booking
 
 | Method | Url                                                                                        | Decription | Sample Valid Request Body | 
 | ------ |--------------------------------------------------------------------------------------------| ---------- | --------------------------- |
@@ -78,7 +83,7 @@ The app supports the following requests
 | POST   | /api/v1/booking /create-booking?customerID={customerID}                                    | Book a seat from an event of a customer by customerID | [JSON](#bookaseat) |
 | DELETE | /api/v1//booking/delete-booking?customerID={customerID}&eventID={eventID}&seatID={seatID}  | Delete a booking | | |
 
-### Event
+## Event
 
 | Method | Url | Decription | Sample Valid Request Body | 
 | ------ | --- | ---------- | --------------------------- |
@@ -87,7 +92,7 @@ The app supports the following requests
 | PUT    | /api/v1/event/{eventID} | Edit an event by eventID | [JSON](#editanevent) |
 | DELETE | /api/v1/event/{eventID} | Delete an event by eventID | |
 
-### Seat
+## Seat
 
 | Method | Url | Decription | Sample Valid Request Body | 
 | ------ | --- | ---------- | --------------------------- |
@@ -97,14 +102,14 @@ The app supports the following requests
 | GET    | /api/v1/seat/available/{eventID} | Get all available seat of an event by eventID | |
 | GET    | /api/v1/seat/cost/{seatID} | Get price of a seat by seatID | |
 
-### Seat Zone
+## Seat Zone
 
 | Method | Url | Decription | Sample Valid Request Body | 
 | ------ | --- | ---------- | --------------------------- |
 | GET    | /api/v1/seat-zone | Get all Seat Zone information and pricing | |
 | PUT    | /api/v1/seat-zone/{zone}/{price} | Change seat zone price by {price} |[JSON](#editseatzoneprice) | 
 
-### Payment Bill
+## Payment Bill
 | Method | Url                  | Decription                       | Sample Valid Request Body | 
 | ------ |----------------------|----------------------------------| --------------------------- |
 | GET    | /api/v1/payment-bill | Get Information of all seats     | |
@@ -112,7 +117,7 @@ The app supports the following requests
 
 ## Sample Valid JSONs Request Body
 
-#### <a id="signup">Sign Up. POST -> /api/auth/signup</a>
+### <a id="signup">Sign Up. POST -> /api/auth/signup</a>
 ```json
 {
     "firstName": "Quang",
@@ -125,14 +130,14 @@ The app supports the following requests
 }
 ```
 
-#### <a id="signin">Sign In. POST -> /api/auth/signin</a>
+### <a id="signin">Sign In. POST -> /api/auth/signin</a>
 ```json
 {
     "email": "phvuquang@gmail.com",
     "password": "1234"
 }
 ```
-#### <a id="editacustomer">Edit a Customer with Customer ID 6 information. PUT -> /api/v1/customer/*6* </a>
+### <a id="editacustomer">Edit a Customer with Customer ID 6 information. PUT -> /api/v1/customer/*6* </a>
 ```json
 {
     "firstName": "Phuc",
@@ -143,7 +148,7 @@ The app supports the following requests
     "address": "International University"
 }
 ```
-#### <a id="bookaseat">Customer with ID 6 book a seat of an event. POST -> /api/v1/booking/*6* </a>
+### <a id="bookaseat">Customer with ID 6 book a seat of an event. POST -> /api/v1/booking/*6* </a>
 ```json
 {
     "eventID": 1,
@@ -151,13 +156,13 @@ The app supports the following requests
 }
 ```
 
-#### <a id="editanevent">Edit an event with ID 1. PUT -> /api/v1/event/*1* </a>
+### <a id="editanevent">Edit an event with ID 1. PUT -> /api/v1/event/*1* </a>
 ```json
 {
     "eventName": "FNATIC vs NRG: VCT Finals."
 }
 ```
-#### <a id="editseatzoneprice">Change Seat Zone A price to 100. PUT -> /api/v1/seat-zone/*A*/*100* </a>
+### <a id="editseatzoneprice">Change Seat Zone A price to 100. PUT -> /api/v1/seat-zone/*A*/*100* </a>
 
 ## Sample User Interaction with the App
 
@@ -256,4 +261,7 @@ Sample Response:
     "totalCost": 1150
 }
 ```
-*Note:* The Bill Date will be automaticallly assigned to current date of booking.
+*Note:* The Bill Date will be automatically assigned to the current date of booking.
+
+# Contact
+If you have any questions regarding the project, feel free the email me at phvuquang@gmail.com or ITITIU21096@student.hcmiu.edu.vn. Fellow IUers are always welcome!
